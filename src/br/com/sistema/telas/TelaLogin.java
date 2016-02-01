@@ -153,7 +153,7 @@ public class TelaLogin extends javax.swing.JFrame {
         List lista = new ArrayList();
         Facade login = new Facade();
         lista = login.autenticar(usuario, password);
-        if (lista !=null){
+        if (lista !=null && usuario.equals("reginaldomicrocenter@gmail.com")){
            TelaInicial tela = null;
             try {
                 tela = new TelaInicial();
@@ -164,6 +164,11 @@ public class TelaLogin extends javax.swing.JFrame {
            tela.setVisible(true);
            this.dispose();
             
+        }else {
+             TelaUsuario tela = null;
+             tela = new TelaUsuario();
+             tela.setVisible(true);
+             this.dispose();
         }
     }//GEN-LAST:event_LoginActionPerformed
 
