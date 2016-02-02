@@ -5,6 +5,10 @@
  */
 package br.com.sistema.telas;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
+
 /**
  *
  * @author Reginaldo
@@ -16,6 +20,9 @@ public class TelaUsuario extends javax.swing.JFrame {
      */
     public TelaUsuario() {
         initComponents();
+        URL url = this.getClass().getResource("/imagens/icone.png");  
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo); 
     }
 
     /**
@@ -27,7 +34,7 @@ public class TelaUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -41,6 +48,7 @@ public class TelaUsuario extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

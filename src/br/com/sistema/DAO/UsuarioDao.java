@@ -189,29 +189,15 @@ public class UsuarioDao implements UsuarioDaoIF {
         }
         return null;
     }
-//    
-//    public void atualizarImagemPerfil(String path, int idUsuario) throws SQLException {
-//        try {
-//            conexao.abrir();
-//            String sql = "UPDATE Usuario SET foto=? WHERE id=?";
-//            PreparedStatement stat = con.prepareStatement(sql);
-//            stat.setString(1, path);
-//            stat.setInt(2, idUsuario);
-//            stat.executeUpdate();
-//        }catch(Exception E) { 
-//            E.printStackTrace();
-//        }
-//        finally {
-//            conexao.liberar();
-//        }
-//    }
-//    
+   
     public Usuario getUsuario(String email) throws SQLException {
+        
         try {
             conexao.abrir();
-            String sql = "SELECT * FROM Usuario WHERE email=?";
+            String sql = "SELECT * FROM Usuario WHERE email=? or nome=?";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, email);
+            pstm.setString(2, email);
             ResultSet result = pstm.executeQuery();
             
             Usuario usuario = new Usuario();
@@ -232,56 +218,7 @@ public class UsuarioDao implements UsuarioDaoIF {
         return null;
        
     }
-//    
-//    public Usuario getUsuario(Integer id) throws SQLException {
-//        try {
-//            conexao.abrir();
-//            String sql = "SELECT * FROM Usuario WHERE id=?";
-//            pstm = con.prepareStatement(sql);
-//            pstm.setInt(1, id);
-//            ResultSet result = pstm.executeQuery();
-//            
-//            Usuario usuario = new Usuario();
-//            if (result.next()) {
-//                usuario.setEmail(result.getString("email"));
-//                usuario.setNome(result.getString("nome"));
-//                usuario.setApelido(result.getString("apelido"));
-//                usuario.setSenha(result.getString("senha"));
-//                usuario.setCidade(result.getString("cidade"));
-//                usuario.setEstado(result.getString("estado"));
-//                usuario.setDataNascimento(result.getString("dataNascimento"));
-//                usuario.setFoto(result.getString("foto"));
-//                usuario.setTipo(result.getString("tipo"));
-//            }
-//                return usuario;
-//              } catch(Exception E) { 
-//                    E.printStackTrace();
-//               } finally {
-//            conexao.liberar();
-//        }
-//        return null;
-//       
-//    }
-//    
-//   
-//
-//    @Override
-//    public boolean verificarExistenciaEmail(String email) throws SQLException {
-//        try {
-//            conexao.abrir();
-//            String sql = "{?=call existenciaEmail(?)}";
-//            boolean retorno;
-//            try (CallableStatement stat = con.prepareCall(sql)) {
-//                stat.registerOutParameter(1, java.sql.Types.BOOLEAN);
-//                stat.setString(2, email);
-//                stat.execute();
-//                retorno = stat.getBoolean(1);
-//            }
-//            return retorno;
-//        } catch (SQLException e) {
-//            throw new SQLException(e);
-//        }
-//    }
+
     
     public String carregaUsuario(String email) throws SQLException{
     try{

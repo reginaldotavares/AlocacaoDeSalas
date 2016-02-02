@@ -66,6 +66,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastrar Usuário");
         setResizable(false);
 
         J_imagem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -91,7 +92,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
         jLabel4.setText("Matrícula");
 
-        papel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ALUNO", "MONITOR", "ASSISTENTE DE SALA", "PROFESSOR", " " }));
+        papel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ALUNO", "MONITOR", "ASSISTENTE DE SALA", "PROFESSOR", "ADMINISTRADOR", " " }));
 
         cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Cancel_Icon_16.png"))); // NOI18N
         cancelar.setText("Cancelar");

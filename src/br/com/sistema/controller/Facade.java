@@ -86,6 +86,32 @@ public class Facade {
     
     }
     
+    public String[] retornarUsuario(String email){
+        String[] lista = new String[6];
+        try {
+            GerenciadorDeUsuario usu = new GerenciadorDeUsuario();
+            if(usu.getUsuario(email)!=null){
+                String nomeUsuario = usu.getUsuario(email).getNome();
+                lista[0]=nomeUsuario;
+                String emailUsuario = usu.getUsuario(email).getEmail();
+                lista[1] = emailUsuario;
+                String senhaUsuario = usu.getUsuario(email).getSenha();
+                lista[2] = senhaUsuario;
+                String papelUsuario = usu.getUsuario(email).getPapel();
+                lista[3] = papelUsuario;
+                String matriculaUsuario = usu.getUsuario(email).getMatricula().toString();
+                lista[4] = matriculaUsuario;
+                
+                return lista;
+        } else{
+            JOptionPane.showMessageDialog(null,"Acesso Negado!");
+        }
+        } catch (Exception e) {
+        }
+        return null;
+    
+    }
+    
     public List retornarDadosFeriado(Date data){
         List lista = new ArrayList();
         try {
@@ -168,6 +194,11 @@ public class Facade {
     
     
     public Usuario getUsuario() throws SQLException{
+        GerenciadorDeUsuario usu = new GerenciadorDeUsuario();
+        return usu.getUsuario();
+    }
+    
+    public Usuario getUsuario(String email) throws SQLException{
         GerenciadorDeUsuario usu = new GerenciadorDeUsuario();
         return usu.getUsuario();
     }

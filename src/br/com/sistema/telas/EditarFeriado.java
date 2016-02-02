@@ -6,6 +6,9 @@
 package br.com.sistema.telas;
 
 import br.com.sistema.controller.Facade;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -29,6 +32,9 @@ public class EditarFeriado extends javax.swing.JFrame {
     Facade fachada = new Facade();
     public EditarFeriado() {
         initComponents();
+        URL url = this.getClass().getResource("/imagens/icone.png");  
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo); 
     }
 
     EditarFeriado(TelaInicial tela2) {

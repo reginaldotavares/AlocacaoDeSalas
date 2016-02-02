@@ -7,10 +7,13 @@ package br.com.sistema.telas;
 
 import br.com.sistema.controller.LerCVS;
 import br.com.sistema.gerenciadores.GerenciadorDeFeriado;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -33,6 +36,9 @@ public class ImportarFeriado extends javax.swing.JFrame implements ActionListene
     JFileChooser open;
     public ImportarFeriado() {
         initComponents();
+        URL url = this.getClass().getResource("/imagens/icone.png");  
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo); 
         getContentPane().setLayout(null);  
         String img = null;
            

@@ -6,8 +6,11 @@
 package br.com.sistema.telas;
 
 import br.com.sistema.controller.Facade;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,6 +34,9 @@ public class Editar extends javax.swing.JFrame {
     private TelaInicial telaInical;
     public Editar() {
         initComponents();
+        URL url = this.getClass().getResource("/imagens/icone.png");  
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo); 
     }
     
     public Editar(TelaInicial telaInical) {
@@ -54,13 +60,15 @@ public class Editar extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        Editar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Informações do Usuário");
         setResizable(false);
 
         jLabel4.setText("Matrícula");
 
-        papel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ALUNO", "MONITOR", "ASSISTENTE DE SALA", "PROFESSOR", " " }));
+        papel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ALUNO", "MONITOR", "ASSISTENTE DE SALA", "PROFESSOR", "ADMINISTRADOR", " " }));
 
         cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Cancel_Icon_16.png"))); // NOI18N
         cancelar.setText("Cancelar");
@@ -80,7 +88,7 @@ public class Editar extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel5.setText("Editar Usuário");
+        jLabel5.setText("Informações do Usuário");
 
         foto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -103,6 +111,14 @@ public class Editar extends javax.swing.JFrame {
 
         jLabel3.setText("E-mail");
 
+        Editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/editar2.png"))); // NOI18N
+        Editar.setText("Editar");
+        Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,7 +127,10 @@ public class Editar extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
                         .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(91, 91, 91)
+                        .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -129,10 +148,10 @@ public class Editar extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(papel, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 34, Short.MAX_VALUE)))
+                        .addGap(0, 90, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(123, 123, 123)
+                .addGap(63, 63, 63)
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -170,7 +189,8 @@ public class Editar extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -206,7 +226,7 @@ public class Editar extends javax.swing.JFrame {
             try {
                 if( validarCampos()){
                     fachada.editar(name, password, mail, mat, paper, foto);
-                    this.telaInical.atualizarModelo();
+//                    this.telaInical.atualizarModelo();
                     this.dispose();
                 }
 
@@ -238,6 +258,10 @@ public class Editar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeActionPerformed
 
+    private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
+        carregarTexto(true);
+    }//GEN-LAST:event_EditarActionPerformed
+
     public boolean validarCampos(){
   
             if(nome.getText().equals("") || fachada.isNomeValid(nome.getText())){
@@ -266,6 +290,16 @@ public class Editar extends javax.swing.JFrame {
             }
             
            return true;
+    }
+    
+    public void carregarTexto(boolean b){
+        nome.setEnabled(b);
+        senha.setEnabled(b);
+        email.setEnabled(b);
+        matricula.setEnabled(b);
+        papel.setEnabled(b);
+        jButton_selecionar.setEnabled(b);
+        Editar.setEnabled(!b);
     }
     
     /**
@@ -304,6 +338,7 @@ public class Editar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Editar;
     private javax.swing.JButton cadastrar;
     private javax.swing.JButton cancelar;
     private javax.swing.JTextField email;

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import static sun.security.jgss.GSSUtil.login;
 
 /**
@@ -153,7 +154,10 @@ public class TelaLogin extends javax.swing.JFrame {
         List lista = new ArrayList();
         Facade login = new Facade();
         lista = login.autenticar(usuario, password);
-        if (lista !=null && usuario.equals("reginaldomicrocenter@gmail.com")){
+        if(lista == null){
+            JOptionPane.showMessageDialog(null, "Usuário não localizado!");
+        }
+        else if (lista.get(2).equals("ADMINISTRADOR")){
            TelaInicial tela = null;
             try {
                 tela = new TelaInicial();
@@ -170,6 +174,7 @@ public class TelaLogin extends javax.swing.JFrame {
              tela.setVisible(true);
              this.dispose();
         }
+        
     }//GEN-LAST:event_LoginActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed

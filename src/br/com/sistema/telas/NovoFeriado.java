@@ -6,6 +6,9 @@
 package br.com.sistema.telas;
 
 import br.com.sistema.controller.Facade;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -27,6 +30,9 @@ public class NovoFeriado extends javax.swing.JFrame {
     private TelaInicial telaInical;
     public NovoFeriado() {
         initComponents();
+        URL url = this.getClass().getResource("/imagens/icone.png");  
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo); 
     }
 
     NovoFeriado(TelaInicial tela2) {
@@ -51,6 +57,7 @@ public class NovoFeriado extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastrar Feriado");
 
         jLabel1.setText("Nome Feriado");
 
@@ -139,9 +146,10 @@ public class NovoFeriado extends javax.swing.JFrame {
                                 "Introduza a data correcta", "ERRO",
                                 JOptionPane.ERROR_MESSAGE);
         }
-            fachada.cadastrarFeriado(nomeFeriado.getText(), d);
-            this.telaInical.atualizarTextArea();
-            
+            if( validarCampos()){
+                fachada.cadastrarFeriado(nomeFeriado.getText(), d);
+                this.telaInical.atualizarTextArea();
+            }
             
         } catch (SQLException ex) {
             Logger.getLogger(NovoFeriado.class.getName()).log(Level.SEVERE, null, ex);
@@ -150,8 +158,17 @@ public class NovoFeriado extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_CadastrarActionPerformed
 
+    public boolean validarCampos(){
+  
+            if(nomeFeriado.getText().equals("") || fachada.isNomeValid(nomeFeriado.getText())){
+                JOptionPane.showMessageDialog(null, "nome inválido!");
+                nomeFeriado.requestFocus();
+                return false;
+            }
+        return true;
+    }
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_cancelarActionPerformed
 
     /**
