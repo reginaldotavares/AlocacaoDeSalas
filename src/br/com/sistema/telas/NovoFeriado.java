@@ -58,6 +58,7 @@ public class NovoFeriado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Feriado");
+        setResizable(false);
 
         jLabel1.setText("Nome Feriado");
 
@@ -135,22 +136,21 @@ public class NovoFeriado extends javax.swing.JFrame {
     }//GEN-LAST:event_nomeFeriadoActionPerformed
 
     private void CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarActionPerformed
-        
         try {
         DateFormat df = new SimpleDateFormat("dd/MMyyyy"); 
         java.sql.Date d = null;
-        try {
+            try {
                 d = new java.sql.Date(df.parse(df.format(jDateChooser.getDate())).getTime());
-        } catch (ParseException e) {
-                JOptionPane.showMessageDialog(rootPane,
-                                "Introduza a data correcta", "ERRO",
-                                JOptionPane.ERROR_MESSAGE);
-        }
-            if( validarCampos()){
-                fachada.cadastrarFeriado(nomeFeriado.getText(), d);
-                this.telaInical.atualizarTextArea();
+                String dat = d.toString();
+                if(fachada.isDataValid(dat)){
+                    if( validarCampos()){
+                        fachada.cadastrarFeriado(nomeFeriado.getText(), d);
+                        this.telaInical.atualizarTextArea();
+                    }
+                }else JOptionPane.showMessageDialog(null, "Data Inválida!");
+            } catch (ParseException ex) {
+                Logger.getLogger(NovoFeriado.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         } catch (SQLException ex) {
             Logger.getLogger(NovoFeriado.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -165,6 +165,8 @@ public class NovoFeriado extends javax.swing.JFrame {
                 nomeFeriado.requestFocus();
                 return false;
             }
+            
+            
         return true;
     }
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed

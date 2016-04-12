@@ -29,6 +29,11 @@ public class Usuario {
         this.imagem = imagem;
     }
 
+    public Usuario(String nome) {
+        this.nome = nome;
+    }
+    
+
     public String getNome() {
         return nome;
     }
@@ -77,8 +82,10 @@ public class Usuario {
         this.imagem = imagem;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return nome;
+    }
     
 }
 

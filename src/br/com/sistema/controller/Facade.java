@@ -19,8 +19,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
@@ -33,6 +37,7 @@ import javax.swing.JOptionPane;
  */
 public class Facade {
     BufferedImage imagem;
+    ConverterData converter = new ConverterData();
     
     public List autenticar(String usuario, String senha){
         List<Object> lista = new ArrayList<>();
@@ -42,7 +47,7 @@ public class Facade {
                 JOptionPane.showMessageDialog(null, "Acesso realizado com sucesso!");
                 String nomeUsuario = usu.logar(usuario, senha).getNome();
                 lista.add(nomeUsuario);
-                String emailUsuario = usuario;
+                String emailUsuario = usu.logar(usuario, senha).getEmail();;
                 lista.add(emailUsuario);
                 String papelUsuario = usu.logar(usuario, senha).getPapel();
                 lista.add(papelUsuario);
@@ -86,29 +91,9 @@ public class Facade {
     
     }
     
-    public String[] retornarUsuario(String email){
-        String[] lista = new String[6];
-        try {
-            GerenciadorDeUsuario usu = new GerenciadorDeUsuario();
-            if(usu.getUsuario(email)!=null){
-                String nomeUsuario = usu.getUsuario(email).getNome();
-                lista[0]=nomeUsuario;
-                String emailUsuario = usu.getUsuario(email).getEmail();
-                lista[1] = emailUsuario;
-                String senhaUsuario = usu.getUsuario(email).getSenha();
-                lista[2] = senhaUsuario;
-                String papelUsuario = usu.getUsuario(email).getPapel();
-                lista[3] = papelUsuario;
-                String matriculaUsuario = usu.getUsuario(email).getMatricula().toString();
-                lista[4] = matriculaUsuario;
-                
-                return lista;
-        } else{
-            JOptionPane.showMessageDialog(null,"Acesso Negado!");
-        }
-        } catch (Exception e) {
-        }
-        return null;
+    public List<String[]> retornarUsuario(String email) throws SQLException{
+         GerenciadorDeUsuario usuario = new GerenciadorDeUsuario();
+          return usuario.pesquisarUsuario(email);
     
     }
     
@@ -303,6 +288,47 @@ public class Facade {
         
     }
     
+      public boolean isDataValid(String data) throws ParseException {
+
+        String datapattern = "^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((19|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$";
+        Pattern pattern = Pattern.compile(datapattern, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(data);
+        Date dataAtual = new Date(System.currentTimeMillis());
+        Date datAntiga = converter.stringParaDate("01/01/1990");
+            boolean valorEntre = validarData(dataAtual, (Date) datAntiga, stringParaDate(data));
+
+            return valorEntre ? true : false;
+        
+//        Pattern pattern = Pattern.compile("^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((19|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$");
+//        Matcher matcher = pattern.matcher(data);
+//        Date dataAtual = new Date(System.currentTimeMillis());
+//        Date datAntiga = converter.stringParaDate("01/01/1990");
+//        if (matcher.find()) {
+//            boolean valorEntre = validarData(dataAtual, (Date) datAntiga, stringParaDate(data));
+//
+//            return valorEntre ? true : false;
+//        }
+//        return false;
+
+    }
+      
+    public Date stringParaDate(String date) throws ParseException {
+
+       DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+       Date data = new Date(formatter.parse(date).getTime());
+
+        return data;
+    }
+  
+    
+    public boolean validarData(Date dataAtual, Date dataRemota, Date dataEvento) throws ParseException {
+        
+        if(dataEvento.after(dataRemota) && dataEvento.before(dataAtual)){
+           return true; 
+        }
+        return false;
+    }
+    
     public boolean isNomeValid(String nome) {
         String nomePattern = "(?=\\w.*[a-z])(?=\\w.*(_|[^\\w ])).+";
         Pattern pattern = Pattern.compile(nomePattern, Pattern.CASE_INSENSITIVE);
@@ -347,10 +373,11 @@ public class Facade {
         
     }
     
-     public void carregarTabela() throws SQLException{
-         
-         
-     }
+     public Vector<Usuario> carregaComboUsuario() throws SQLException {
+        GerenciadorDeUsuario usuario = new GerenciadorDeUsuario();
+        return usuario.carregaCombo();
+    }
+
     
          
     

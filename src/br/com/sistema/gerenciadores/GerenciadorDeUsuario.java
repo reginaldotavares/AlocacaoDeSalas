@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class GerenciadorDeUsuario {
     
@@ -52,12 +53,23 @@ public class GerenciadorDeUsuario {
         return true;
     }
 //    
-//    public Usuario pesquisarUsuario(String nome) throws SQLException{
-//        DaoFactoryIF fabrica = DaoFactory.creatFactory();
-//        UsuarioDaoIF usuDao = fabrica.criaUsuarioDao();
-//        return usuDao.pesquisar(nome);
-//    }
-//    
+    public List pesquisarUsuario(String pesquisa) throws SQLException{
+        DaoFactoryIF fabrica = DaoFactory.creatFactory();
+        UsuarioDaoIF usuDao = fabrica.criaUsuarioDao();
+        List<String[]> listaRetorno = new ArrayList();        
+        List<Usuario> lista = usuDao.pesquisar(pesquisa);
+        for (Usuario lista1 : lista) {
+            String nome = lista1.getNome();
+            String email = lista1.getEmail();
+            String papel = lista1.getPapel();
+            String matricula = lista1.getMatricula().toString();
+            String[] usuario = new String[]{nome,email,papel,matricula};
+            listaRetorno.add(usuario);
+        }
+        
+        return listaRetorno;
+    }
+    
     public Usuario getUsuario(String email) throws SQLException {
         DaoFactoryIF fabrica = DaoFactory.creatFactory();
         UsuarioDaoIF usuario = fabrica.criaUsuarioDao();
@@ -99,17 +111,18 @@ public class GerenciadorDeUsuario {
         
         return listaRetorno;
     }
-//    
-//    public Usuario pesquisarUsuarioEmail(String email) throws SQLException{
-//        DaoFactoryIF fabrica = DaoFactory.creatFactory();
-//        UsuarioDaoIF usuDao = fabrica.criaUsuarioDao();
-//        return usuDao.getUsuario(email);
-//    }
-//    
-//    public boolean verificarExistenciaEmail(String email) throws SQLException {
-//        DaoFactoryIF fabrica = DaoFactory.creatFactory();
-//        UsuarioDaoIF usuario = fabrica.criaUsuarioDao();
-//        return usuario.verificarExistenciaEmail(email);
-//    }
+    
+    public Vector<Usuario> carregaCombo() throws SQLException{
+        DaoFactoryIF fabrica = DaoFactory.creatFactory();
+        UsuarioDaoIF usuarioDao = fabrica.criaUsuarioDao();
+        Vector<Usuario> listaRetorno = new Vector();        
+        Vector<Usuario> lista = usuarioDao.carregaCombo();
+        for (Usuario lista1 : lista) {
+            String nome = lista1.getNome();
+            listaRetorno.add(lista1);
+        }
+        
+        return listaRetorno;
+    }
     
 }

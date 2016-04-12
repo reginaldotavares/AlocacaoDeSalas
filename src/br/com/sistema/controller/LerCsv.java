@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author Reginaldo
  */
-public class LerCVS {
+public class LerCsv {
 
     public void readCsvFile(String path) throws IOException, SQLException, ParseException {
 
@@ -43,7 +43,7 @@ public class LerCVS {
 //passando como parametro o divisor ";".
 
                 TableLine = Str.split(";");
-//O foreach é usadao para imprimir cada célula do array de String.
+//O foreach é usado para imprimir cada célula do array de String.
                 List lista = new ArrayList();
                 for (String cell : TableLine) {
                     lista.add(cell);

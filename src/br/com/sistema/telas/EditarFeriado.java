@@ -60,6 +60,7 @@ public class EditarFeriado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Editar Feriado");
+        setResizable(false);
 
         jLabel1.setText("Nome Feriado");
 

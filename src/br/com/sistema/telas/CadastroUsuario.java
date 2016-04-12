@@ -224,7 +224,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
             try {
                 if( validarCampos()){
                     fachada.cadastrar(name, password, mail, mat, paper, foto);
-                    this.telaInical.atualizarModelo();
+                    this.telaInical.carregarJTable();
                     this.dispose();
                 }
 

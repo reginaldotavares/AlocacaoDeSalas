@@ -168,12 +168,24 @@ public class TelaLogin extends javax.swing.JFrame {
            tela.setVisible(true);
            this.dispose();
             
-        }else {
-             TelaUsuario tela = null;
+        }else if(lista.get(2).equals("ASSISTENTE DE SALA")){
+             TelaAssistenteSala tela = null;
+            try {
+                tela = new TelaAssistenteSala();
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             tela.recebeParametros(lista);
+             tela.setVisible(true);
+             this.dispose();
+        }else{
+            TelaUsuario tela = null;
              tela = new TelaUsuario();
+             tela.recebeParametros(lista);
              tela.setVisible(true);
              this.dispose();
         }
+        
         
     }//GEN-LAST:event_LoginActionPerformed
 

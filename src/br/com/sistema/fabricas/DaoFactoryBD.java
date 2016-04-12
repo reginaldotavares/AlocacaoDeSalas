@@ -1,8 +1,18 @@
 package br.com.sistema.fabricas;
 
-import br.com.sistema.DAO.FeriadoDao;
-import br.com.sistema.DAO.UsuarioDao;
+import br.com.sistema.dao.AlocacaoDao;
+import br.com.sistema.dao.BlocoDao;
+import br.com.sistema.dao.EventoDao;
+import br.com.sistema.dao.FeriadoDao;
+import br.com.sistema.dao.MaterialDao;
+import br.com.sistema.dao.SalaDao;
+import br.com.sistema.dao.UsuarioDao;
+import br.com.sistema.interfaces.AlocacaoDaoIF;
+import br.com.sistema.interfaces.BlocoDaoIF;
+import br.com.sistema.interfaces.EventoDaoIF;
 import br.com.sistema.interfaces.FeriadoDaoIF;
+import br.com.sistema.interfaces.MaterialDaoIF;
+import br.com.sistema.interfaces.SalaDaoIF;
 import br.com.sistema.interfaces.UsuarioDaoIF;
 
 
@@ -18,5 +28,24 @@ public class DaoFactoryBD implements DaoFactoryIF{
         return new FeriadoDao();
     }
     
+    public MaterialDaoIF criaMaterialDao() {
+        return new MaterialDao();
+    }
+    
+    public BlocoDaoIF criaBlocoDao() {
+        return new BlocoDao();
+    }
+    
+    public SalaDaoIF criaSalaDao() {
+        return new SalaDao();
+    }
+    
+    public EventoDaoIF criaEventoDao() {
+        return new EventoDao();
+    }
+    
+    public AlocacaoDaoIF criaAlocacaoDao() {
+        return new AlocacaoDao();
+    }
 
 }

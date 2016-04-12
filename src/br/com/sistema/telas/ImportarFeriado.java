@@ -5,7 +5,7 @@
  */
 package br.com.sistema.telas;
 
-import br.com.sistema.controller.LerCVS;
+import br.com.sistema.controller.LerCsv;
 import br.com.sistema.gerenciadores.GerenciadorDeFeriado;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -86,6 +86,7 @@ public class ImportarFeriado extends javax.swing.JFrame implements ActionListene
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Importar Feriado");
+        setResizable(false);
 
         selecionar.setText("Selecionar");
 
@@ -149,7 +150,7 @@ public class ImportarFeriado extends javax.swing.JFrame implements ActionListene
     private void ImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportarActionPerformed
 
         
-        LerCVS ler = new LerCVS();
+        LerCsv ler = new LerCsv();
         try {
             try {
                 ler.readCsvFile(caminho.getText());

@@ -5,19 +5,26 @@
  */
 package br.com.sistema.telas;
 
+import br.com.sistema.controller.Facade;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Reginaldo
  */
 public class TelaUsuario extends javax.swing.JFrame {
+    
 
     /**
      * Creates new form TelaUsuario
      */
+    Facade fachada = new Facade();
     public TelaUsuario() {
         initComponents();
         URL url = this.getClass().getResource("/imagens/icone.png");  
@@ -34,22 +41,172 @@ public class TelaUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        nome = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        logado = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        editarPerfil = new javax.swing.JButton();
+        nome1 = new javax.swing.JLabel();
+        email = new javax.swing.JLabel();
+        foto = new javax.swing.JLabel();
+        email1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel2.setText("Nome:");
+
+        jLabel3.setText("E-mail:");
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logo.png"))); // NOI18N
+
+        nome.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        nome.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        jLabel1.setText("Logado como:");
+
+        logado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jButton2.setText("Sair");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        editarPerfil.setText("Editar Perfil");
+        editarPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarPerfilActionPerformed(evt);
+            }
+        });
+
+        nome1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        nome1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        email.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        email.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
+        foto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        email1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        email1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(279, 279, 279)
+                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(logado, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(editarPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(763, 763, 763)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(email1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(foto, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(nome1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(foto, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(jLabel2)))
+                        .addGap(1, 1, 1)
+                        .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(logado, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(editarPerfil))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton2)
+                                    .addComponent(email1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(328, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 224, Short.MAX_VALUE)
+                    .addComponent(nome1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 225, Short.MAX_VALUE)))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public void recebeParametros(List lista) {
+        nome.setText((String) lista.get(0));
+        email.setText((String) lista.get(1));
+        logado.setText((String) lista.get(2));
+        fachada.exibirImagemLabel((byte[]) lista.get(3), foto);
+    }
+    
+    private void editarPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarPerfilActionPerformed
+
+        String emailUsuario = email.getText();
+
+        List listaUsuario;
+        listaUsuario = fachada.retornarDados(emailUsuario);
+
+        if (listaUsuario != null) {
+            Editar tela;
+            tela = new Editar();
+            try {
+                tela.recebeParametros(listaUsuario);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            tela.carregarTexto(true);
+            tela.setVisible(true);
+
+        }
+    }//GEN-LAST:event_editarPerfilActionPerformed
 
     /**
      * @param args the command line arguments
@@ -77,6 +234,9 @@ public class TelaUsuario extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -87,5 +247,17 @@ public class TelaUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton editarPerfil;
+    private javax.swing.JLabel email;
+    private javax.swing.JLabel email1;
+    private javax.swing.JLabel foto;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel logado;
+    private javax.swing.JLabel nome;
+    private javax.swing.JLabel nome1;
     // End of variables declaration//GEN-END:variables
 }
