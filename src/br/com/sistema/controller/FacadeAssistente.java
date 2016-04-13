@@ -12,6 +12,7 @@ import br.com.sistema.gerenciadores.GerenciadorDeMaterial;
 import br.com.sistema.gerenciadores.GerenciadorDeSala;
 import br.com.sistema.modelos.Bloco;
 import br.com.sistema.modelos.Evento;
+import br.com.sistema.modelos.Material;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -67,6 +68,11 @@ public class FacadeAssistente {
     public List<String[]> listar() throws SQLException {
         GerenciadorDeMaterial material = new GerenciadorDeMaterial();
         return material.listarMaterials();
+    }
+    
+    public ArrayList<Material> listarMateriais() throws SQLException {
+        GerenciadorDeMaterial material = new GerenciadorDeMaterial();
+        return material.ListarMateriais();
     }
     
     public List<String[]> listarBloco() throws SQLException {

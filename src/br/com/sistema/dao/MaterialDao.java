@@ -119,8 +119,8 @@ public class MaterialDao implements MaterialDaoIF{
     }
 
     @Override
-    public List<Material> listarMaterial() throws SQLException {
-        List<Material> materiais = new ArrayList<Material>();
+    public ArrayList<Material> listarMaterial() throws SQLException {
+        ArrayList<Material> materiais = new ArrayList<Material>();
         try {
             conexao.abrir();
 

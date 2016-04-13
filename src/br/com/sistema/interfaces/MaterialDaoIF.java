@@ -7,6 +7,7 @@ package br.com.sistema.interfaces;
 
 import br.com.sistema.modelos.Material;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public interface MaterialDaoIF {
     
     public Material getMaterial(Integer tombamento) throws SQLException;
     
-    public List<Material> listarMaterial() throws SQLException;
+    public ArrayList<Material> listarMaterial() throws SQLException;
     
     public List pesquisar(Integer tombamento) throws SQLException;
 

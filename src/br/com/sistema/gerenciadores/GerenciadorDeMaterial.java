@@ -99,6 +99,15 @@ public class GerenciadorDeMaterial {
         return listaRetorno;
     }
     
+    public ArrayList ListarMateriais() throws SQLException{
+        DaoFactoryIF fabrica = DaoFactory.creatFactory();
+        MaterialDaoIF materialDao = fabrica.criaMaterialDao();        
+        ArrayList<Material> lista = materialDao.listarMaterial();
+        
+        
+        return lista;
+    }
+    
     public List pesquisarMaterial(String pesquisa) throws SQLException{
         DaoFactoryIF fabrica = DaoFactory.creatFactory();
         MaterialDaoIF materialDao = fabrica.criaMaterialDao();

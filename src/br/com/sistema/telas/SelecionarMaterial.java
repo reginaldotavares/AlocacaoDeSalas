@@ -5,17 +5,38 @@
  */
 package br.com.sistema.telas;
 
+import br.com.sistema.controller.FacadeAssistente;
+import br.com.sistema.modelos.Material;
+import br.com.sistema.modelos.ModeloTabelaMaterial;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Reginaldo
  */
-public class SelecionarMaterial extends javax.swing.JFrame {
-
+    public class SelecionarMaterial extends javax.swing.JFrame {
+    FacadeAssistente fachadaAssistente = new FacadeAssistente();
+    private ModeloTabelaMaterial tabelaMaterial;
+    private ModeloTabelaMaterial tabela;
     /**
      * Creates new form SelecionarMaterial
      */
-    public SelecionarMaterial() {
+    public SelecionarMaterial() throws SQLException {
         initComponents();
+        ArrayList<Material> lista = fachadaAssistente.listarMateriais();
+        this.tabelaMaterial = new ModeloTabelaMaterial();
+        this.jTable2.setModel(tabelaMaterial);
+        this.tabela = new ModeloTabelaMaterial(lista);
+        this.jTable1.setModel(tabela);
+//        this.tabela.addMateriais(lista);
+//        carregarJTable();
     }
 
     /**
@@ -30,40 +51,191 @@ public class SelecionarMaterial extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         evento = new javax.swing.JTextField();
         filtrarMaterial = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Evento");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        jScrollPane1.setViewportView(jTable1);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        jScrollPane2.setViewportView(jTable2);
+
+        jButton1.setText(">");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("<");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("<<");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(filtrarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(evento, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(filtrarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(evento, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(evento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(filtrarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(292, Short.MAX_VALUE))
+                .addGap(88, 88, 88)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(evento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(filtrarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        List<Material> l = tabela.removeElements(jTable1.getSelectedRows());
+        tabelaMaterial.addElement(l);
+        
+//        if (linhas.length > 1) {
+//                for (int i = 0; i < linhas.length; i++) {
+//                    int num = i;
+//                    if (linhas[num] != -1) {
+//                        String[] lista = null;
+//                        try {
+//                            lista = fachadaAssistente.listar().get(linhas[num]);
+//                        } catch (SQLException ex) {
+//                            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                        String descricao = lista[0];
+//                        Material material = new Material(descricao);
+//                        this.tabelaMaterial.addMaterial(material);
+//                        this.tabela.removerMaterial(num);
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "Selecione um Material!");
+//                    }
+//                }
+//        } else {
+//            int linha = jTable1.getSelectedRow();
+//            if (linha != -1) {
+//
+//                try {
+//                    String[] lista = fachadaAssistente.listar().get(linha);
+//
+//                    String descricao = lista[0];
+//                    
+//                    Material material = new Material(descricao);
+//                    this.tabelaMaterial.addMaterial(material);
+//                    this.tabela.removerMaterial(linha);
+//                    
+//
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Selecione um Material!");
+//            }
+//
+//        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        List<Material> l = tabelaMaterial.removeElements(jTable2.getSelectedRows());
+        tabela.addElement(l);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    public void carregarJTable() throws SQLException {
+        List<String[]> lista = fachadaAssistente.listar();
+        DefaultTableModel modelo = new javax.swing.table.DefaultTableModel();
+        modelo.addColumn("Material");
+
+        if (lista.isEmpty()) {
+            modelo.addRow(new String[]{"sem dados"});
+        }
+
+        for (String[] materiais : lista) {
+            modelo.addRow(new String[]{materiais[0]});
+        }
+        jTable1.setModel(modelo);
+        
+        
+
+    }
+    
+    public void carregarJTable2() throws SQLException {
+        ModeloTabelaMaterial modelo = new ModeloTabelaMaterial();
+        
+        jTable2.setModel(modelo);
+
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -94,7 +266,11 @@ public class SelecionarMaterial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SelecionarMaterial().setVisible(true);
+                try {
+                    new SelecionarMaterial().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(SelecionarMaterial.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -102,6 +278,13 @@ public class SelecionarMaterial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField evento;
     private javax.swing.JTextField filtrarMaterial;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
