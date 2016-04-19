@@ -6,6 +6,7 @@
 package br.com.sistema.telas;
 
 import br.com.sistema.controller.FacadeAssistente;
+import br.com.sistema.modelos.Alocacao;
 import br.com.sistema.modelos.Material;
 import br.com.sistema.modelos.ModeloTabelaMaterial;
 import java.sql.SQLException;
@@ -23,21 +24,32 @@ import javax.swing.table.DefaultTableModel;
  */
     public class SelecionarMaterial extends javax.swing.JFrame {
     FacadeAssistente fachadaAssistente = new FacadeAssistente();
-    private ModeloTabelaMaterial tabelaMaterial;
-    private ModeloTabelaMaterial tabela;
+    private ModeloTabelaMaterial tabelaDireita;
+    private ModeloTabelaMaterial tabelaEsquerda;
+    private AlocarEvento telaEvento;
     /**
      * Creates new form SelecionarMaterial
      */
     public SelecionarMaterial() throws SQLException {
         initComponents();
         ArrayList<Material> lista = fachadaAssistente.listarMateriais();
-        this.tabelaMaterial = new ModeloTabelaMaterial();
-        this.jTable2.setModel(tabelaMaterial);
-        this.tabela = new ModeloTabelaMaterial(lista);
-        this.jTable1.setModel(tabela);
-//        this.tabela.addMateriais(lista);
-//        carregarJTable();
+        this.tabelaDireita = new ModeloTabelaMaterial();
+        this.jTable2.setModel(tabelaDireita);
+        this.tabelaEsquerda = new ModeloTabelaMaterial(lista);
+        this.jTable1.setModel(tabelaEsquerda);
+        if(tabelaEsquerda!=null){
+            BotaoAdicionar.setEnabled(true);
+        }
+        
     }
+
+    SelecionarMaterial(AlocarEvento tela2, String descricao) throws SQLException {
+        this();
+        this.telaEvento = tela2;
+        evento.setText(descricao);
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,13 +67,20 @@ import javax.swing.table.DefaultTableModel;
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        BotaoAdicionar = new javax.swing.JButton();
+        BotaoRemover = new javax.swing.JButton();
+        BotaoRemoverTodos = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
+        cadastrar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Alocar Material");
+        setResizable(false);
 
         jLabel1.setText("Evento");
+
+        evento.setEnabled(false);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,50 +110,88 @@ import javax.swing.table.DefaultTableModel;
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
         jScrollPane2.setViewportView(jTable2);
 
-        jButton1.setText(">");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BotaoAdicionar.setText(">");
+        BotaoAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BotaoAdicionarActionPerformed(evt);
             }
         });
 
-        jButton3.setText("<");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        BotaoRemover.setText("<");
+        BotaoRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                BotaoRemoverActionPerformed(evt);
             }
         });
 
-        jButton4.setText("<<");
+        BotaoRemoverTodos.setText("<<");
+        BotaoRemoverTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoRemoverTodosActionPerformed(evt);
+            }
+        });
+
+        cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pular.png"))); // NOI18N
+        cancelar.setText("Pular");
+        cancelar.setToolTipText("Pular");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
+
+        cadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Ok_Icon_16.png"))); // NOI18N
+        cadastrar.setText("Confirmar");
+        cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel5.setText("Selecionar Material");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(filtrarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(evento, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(filtrarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BotaoRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BotaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BotaoRemoverTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(86, 86, 86))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -146,96 +203,90 @@ import javax.swing.table.DefaultTableModel;
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(55, 55, 55)
-                                .addComponent(jButton1)
+                                .addComponent(BotaoAdicionar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton3)
+                                .addComponent(BotaoRemover)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton4))
+                                .addComponent(BotaoRemoverTodos))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        List<Material> l = tabela.removeElements(jTable1.getSelectedRows());
-        tabelaMaterial.addElement(l);
+    private void BotaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoAdicionarActionPerformed
+        List<Material> l = tabelaEsquerda.removeElements(jTable1.getSelectedRows());
+        tabelaDireita.addElement(l);
+
+    }//GEN-LAST:event_BotaoAdicionarActionPerformed
+
+    private void BotaoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRemoverActionPerformed
+
+        List<Material> l = tabelaDireita.removeElements(jTable2.getSelectedRows());
+        tabelaEsquerda.addElement(l);
         
-//        if (linhas.length > 1) {
-//                for (int i = 0; i < linhas.length; i++) {
-//                    int num = i;
-//                    if (linhas[num] != -1) {
-//                        String[] lista = null;
-//                        try {
-//                            lista = fachadaAssistente.listar().get(linhas[num]);
-//                        } catch (SQLException ex) {
-//                            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//                        String descricao = lista[0];
-//                        Material material = new Material(descricao);
-//                        this.tabelaMaterial.addMaterial(material);
-//                        this.tabela.removerMaterial(num);
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "Selecione um Material!");
-//                    }
+    }//GEN-LAST:event_BotaoRemoverActionPerformed
+
+    private void BotaoRemoverTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRemoverTodosActionPerformed
+ 
+        jTable2.selectAll();
+        List<Material> l = tabelaDireita.removeElements(jTable2.getSelectedRows());
+        tabelaEsquerda.addElement(l);
+    }//GEN-LAST:event_BotaoRemoverTodosActionPerformed
+
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cancelarActionPerformed
+
+    private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarActionPerformed
+        jTable2.selectAll();
+        List<Material> l = tabelaDireita.getElements(jTable2.getSelectedRows());
+        List<Material> elementos = new ArrayList<>();
+        for(int i=0;i<l.size();i++){
+            try {
+//            elementos.add(l.get(i));
+                Integer tombamento = l.get(i).getTombamento();
+                String nomeEvento = evento.getText();
+//            String Str = nomeEvento;
+//                String[] TableLine;
+//                TableLine = nomeEvento.split(";");
+//                List lista = new ArrayList();
+//                for (String cell : TableLine) {
+//                    lista.add(cell);
 //                }
-//        } else {
-//            int linha = jTable1.getSelectedRow();
-//            if (linha != -1) {
-//
-//                try {
-//                    String[] lista = fachadaAssistente.listar().get(linha);
-//
-//                    String descricao = lista[0];
-//                    
-//                    Material material = new Material(descricao);
-//                    this.tabelaMaterial.addMaterial(material);
-//                    this.tabela.removerMaterial(linha);
-//                    
-//
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Selecione um Material!");
-//            }
-//
-//        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        List<Material> l = tabelaMaterial.removeElements(jTable2.getSelectedRows());
-        tabela.addElement(l);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    public void carregarJTable() throws SQLException {
-        List<String[]> lista = fachadaAssistente.listar();
-        DefaultTableModel modelo = new javax.swing.table.DefaultTableModel();
-        modelo.addColumn("Material");
-
-        if (lista.isEmpty()) {
-            modelo.addRow(new String[]{"sem dados"});
+//                String[] line = nomeEvento.split(" - ");
+//                String nome = line[0];
+                
+                Alocacao alocacao = fachadaAssistente.getAlocacao(nomeEvento);
+                String local = alocacao.getSala();
+                
+                try {
+                    if(fachadaAssistente.cadastrarAlocacaoMaterial(tombamento, nomeEvento, local)){
+                        JOptionPane.showMessageDialog(null, "Alocado com sucesso!");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(SelecionarMaterial.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }catch (SQLException ex) {
+                Logger.getLogger(SelecionarMaterial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.dispose();
         }
+       
 
-        for (String[] materiais : lista) {
-            modelo.addRow(new String[]{materiais[0]});
-        }
-        jTable1.setModel(modelo);
-        
-        
-
-    }
+    }//GEN-LAST:event_cadastrarActionPerformed
     
-    public void carregarJTable2() throws SQLException {
-        ModeloTabelaMaterial modelo = new ModeloTabelaMaterial();
+    public void verificarStatusBotaoRemover(List<Material> lista){
         
-        jTable2.setModel(modelo);
-
     }
-    
     /**
      * @param args the command line arguments
      */
@@ -276,12 +327,15 @@ import javax.swing.table.DefaultTableModel;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotaoAdicionar;
+    private javax.swing.JButton BotaoRemover;
+    private javax.swing.JButton BotaoRemoverTodos;
+    private javax.swing.JButton cadastrar;
+    private javax.swing.JButton cancelar;
     private javax.swing.JTextField evento;
     private javax.swing.JTextField filtrarMaterial;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

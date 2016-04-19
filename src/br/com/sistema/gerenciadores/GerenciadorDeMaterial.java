@@ -5,11 +5,14 @@
  */
 package br.com.sistema.gerenciadores;
 
+import br.com.sistema.dao.AlocacaoMaterialDao;
 import br.com.sistema.dao.MaterialDao;
 import br.com.sistema.fabricas.DaoFactory;
 import br.com.sistema.fabricas.DaoFactoryIF;
+import br.com.sistema.interfaces.AlocacaoMaterialDaoIF;
 import br.com.sistema.interfaces.MaterialDaoIF;
 import br.com.sistema.interfaces.MaterialDaoIF;
+import br.com.sistema.modelos.AlocacaoMaterial;
 import br.com.sistema.modelos.Material;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -64,16 +67,26 @@ public class GerenciadorDeMaterial {
     public List<String[]> listarMaterials() throws SQLException{
         DaoFactoryIF fabrica = DaoFactory.creatFactory();
         MaterialDaoIF materialDao = fabrica.criaMaterialDao();
+        AlocacaoMaterialDaoIF alocacaoMaterialDao = fabrica.criaAlocacaoMaterialDao();
         List<String[]> listaRetorno = new ArrayList();        
-        List<Material> lista = materialDao.listarMaterial();
-        for (Material lista1 : lista) {
-            String nomeMaterial = lista1.getDescricao();
-            String tombamento = lista1.getTombamento().toString();
-            String status;
-            if(lista1.isStatus()){
-                status = "Disponível";
-            }else status = "Emprestado";
-            String[] materiais = new String[]{nomeMaterial, tombamento, status};
+        List<Material> lista = materialDao.listarMaterial();        
+        int n = 0;
+        for (int i = 0; i<lista.size();i++) {
+        List<AlocacaoMaterial> listaAlocacao = alocacaoMaterialDao.listarEventoAlocacao();
+            String nomeMaterial = lista.get(i).getDescricao();
+            String tombamento = lista.get(i).getTombamento().toString();
+            String local = null;
+            String status = "Disponível";
+            if(listaAlocacao.size()>n){
+                String tombamento2 = listaAlocacao.get(n).getTombamento().toString();
+                tombamento2 = listaAlocacao.get(n).getTombamento().toString();
+                local = listaAlocacao.get(n).getLocal();
+                n++;
+            
+                        status = "Emprestado";    
+            }
+            
+            String[] materiais = new String[]{nomeMaterial, tombamento, status, local};
             listaRetorno.add(materiais);
         }
         
@@ -89,10 +102,10 @@ public class GerenciadorDeMaterial {
             String descricao = lista1.getDescricao();
             String tombamento = lista1.getTombamento().toString();
             String status;
-            if(lista1.isStatus()){
-                status = "Disponível";
-            }else status = "Emprestado";
-            String[] materiais = new String[]{descricao,tombamento,status};
+//            if(lista1.isStatus()){
+//                status = "Disponível";
+//            }else status = "Emprestado";
+            String[] materiais = new String[]{descricao,tombamento};
             listaRetorno.add(materiais);
         }
         
@@ -117,10 +130,10 @@ public class GerenciadorDeMaterial {
             String descricao = lista1.getDescricao();
             String tombamento = lista1.getTombamento().toString();
             String status;
-            if(lista1.isStatus()){
-                status = "Disponível";
-            }else status = "Emprestado";
-            String[] materiais = new String[]{descricao,tombamento,status};
+//            if(lista1.isStatus()){
+//                status = "Disponível";
+//            }else status = "Emprestado";
+            String[] materiais = new String[]{descricao,tombamento};
             listaRetorno.add(materiais);
         }
         

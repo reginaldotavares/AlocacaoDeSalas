@@ -678,7 +678,8 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
         for (String[] materiais : lista) {
             modelo.addRow(new String[]{materiais[0],
                 materiais[1],
-                materiais[2]});
+                materiais[2],
+                materiais[3]});
         }
         jTable2.setModel(modelo);
 
@@ -1211,13 +1212,7 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
             TelaAssistenteSala tela2 = this;
             tela = new InserirEvento(tela2);
             tela.setVisible(true);
-            
-//        InserirEvento tela = null;
-//        TelaAssistenteSala tela2 = this;
-//        tela.setVisible(true);
-        
-//        InserirEvento evento = new InserirEvento();
-//        evento.setVisible(true);
+           
         } catch (IOException ex) {
             Logger.getLogger(TelaAssistenteSala.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

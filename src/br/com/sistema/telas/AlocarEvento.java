@@ -206,19 +206,25 @@ public class AlocarEvento extends javax.swing.JFrame {
             }
             String[] line = Str.split(" - ");
             String capacidade = line[1];
+            nomeEvento = line[0];
             int capacidadeEvento = Integer.parseInt(capacidade);
             int linha = jTable1.getSelectedRow();
             if (linha != -1) {
                 try {
+//                    nomeEvento=vetorEvento.get(linha).getNome();
                     String[] lista1 = fachadaAssistente.listarSala().get(linha);
                     Integer id_sala = Integer.parseInt(lista1[0]);
                     Integer id_evento = fachadaAssistente.getEvento(nomeEvento);
                     String sala = lista1[2]+" - "+lista1[1];
                     int capacidadeSala = Integer.parseInt(lista1[3]);
                     if(capacidadeSala >= capacidadeEvento && descricao !=null){
-                        if(fachadaAssistente.cadastrarAlocacao(id_sala,id_evento, desc, sala)){
+                        if(fachadaAssistente.cadastrarAlocacao(id_evento, desc, sala)){
                             JOptionPane.showMessageDialog(null, "Alocado com sucesso!");
+                            SelecionarMaterial tela;
                             this.telaAssistente.carregarJTableEvento();
+                            AlocarEvento tela2 = this;
+                            tela = new SelecionarMaterial(tela2, desc);
+                            tela.setVisible(true);
                         }else JOptionPane.showMessageDialog(null, "Erro na alocação!");
                         this.dispose();
                     }else if(capacidadeSala < capacidadeEvento) {
@@ -234,6 +240,8 @@ public class AlocarEvento extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null, "Selecione uma sala!");
             }
+            
+            
         }
         
     }//GEN-LAST:event_cadastrarActionPerformed

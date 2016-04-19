@@ -20,9 +20,8 @@ import java.util.List;
  * @author Reginaldo
  */
 public class GerenciadorDeAlocacao {
-    public boolean adicionarAlocacao(Integer id_sala, Integer id_evento, String descricao, String sala) throws SQLException{
+    public boolean adicionarAlocacao(Integer id_evento, String descricao, String sala) throws SQLException{
         Alocacao novaAlocacao = new Alocacao();
-        novaAlocacao.setId_sala(id_sala);
         novaAlocacao.setId_evento(id_evento);
         novaAlocacao.setDescricao(descricao);
         novaAlocacao.setSala(sala);
@@ -89,11 +88,11 @@ public class GerenciadorDeAlocacao {
 //        return true;
 //    }
 //    
-//    public Alocacao getAlocacao(String descricao) throws SQLException{
-//        DaoFactoryIF fabrica = DaoFactory.creatFactory();
-//        AlocacaoDaoIF AlocacaoDao = fabrica.criaAlocacaoDao();
-//        return AlocacaoDao.getAlocacao(descricao);
-//    }
+    public Alocacao getAlocacao(String descricao) throws SQLException{
+        DaoFactoryIF fabrica = DaoFactory.creatFactory();
+        AlocacaoDaoIF AlocacaoDao = fabrica.criaAlocacaoDao();
+        return AlocacaoDao.getAlocacao(descricao);
+    }
 //    
 //    public void removerAlocacao(String descricao) throws SQLException{
 //        DaoFactoryIF fabrica = DaoFactory.creatFactory();

@@ -1,6 +1,7 @@
 package br.com.sistema.fabricas;
 
 import br.com.sistema.interfaces.AlocacaoDaoIF;
+import br.com.sistema.interfaces.AlocacaoMaterialDaoIF;
 import br.com.sistema.interfaces.FeriadoDaoIF;
 import br.com.sistema.interfaces.MaterialDaoIF;
 import br.com.sistema.interfaces.UsuarioDaoIF;
@@ -17,4 +18,5 @@ public interface DaoFactoryIF {
     public SalaDaoIF criaSalaDao();
     public EventoDaoIF criaEventoDao();
     public AlocacaoDaoIF criaAlocacaoDao();
+    public AlocacaoMaterialDaoIF criaAlocacaoMaterialDao();
 }

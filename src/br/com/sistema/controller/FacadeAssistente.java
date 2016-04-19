@@ -6,10 +6,12 @@
 package br.com.sistema.controller;
 
 import br.com.sistema.gerenciadores.GerenciadorDeAlocacao;
+import br.com.sistema.gerenciadores.GerenciadorDeAlocacaoMaterial;
 import br.com.sistema.gerenciadores.GerenciadorDeBloco;
 import br.com.sistema.gerenciadores.GerenciadorDeEvento;
 import br.com.sistema.gerenciadores.GerenciadorDeMaterial;
 import br.com.sistema.gerenciadores.GerenciadorDeSala;
+import br.com.sistema.modelos.Alocacao;
 import br.com.sistema.modelos.Bloco;
 import br.com.sistema.modelos.Evento;
 import br.com.sistema.modelos.Material;
@@ -59,9 +61,15 @@ public class FacadeAssistente {
         return true;
     }
     
-    public boolean cadastrarAlocacao(Integer id_sala, Integer id_evento, String descricao, String sala) throws SQLException {
+    public boolean cadastrarAlocacao(Integer id_evento, String descricao, String sala) throws SQLException {
         GerenciadorDeAlocacao alocacao = new GerenciadorDeAlocacao();
-        alocacao.adicionarAlocacao(id_sala, id_evento, descricao, sala);        
+        alocacao.adicionarAlocacao(id_evento, descricao, sala);        
+        return true;
+    }
+    
+    public boolean cadastrarAlocacaoMaterial(Integer tombamento, String descricao, String local) throws SQLException {
+        GerenciadorDeAlocacaoMaterial alocacao = new GerenciadorDeAlocacaoMaterial();
+        alocacao.adicionarAlocacaoMaterial(tombamento, descricao, local);        
         return true;
     }
     
@@ -184,10 +192,10 @@ public class FacadeAssistente {
                 Integer tomb = material.getMaterial(tombamento).getTombamento();
                 lista.add(tomb);
                 String status;
-                if(material.getMaterial(tombamento).isStatus()){
-                    status = "Disponível";
-                }else status = "Emprestado";
-                lista.add(status);
+//                if(material.getMaterial(tombamento).isStatus()){
+//                    status = "Disponível";
+//                }else status = "Emprestado";
+//                lista.add(status);
                 
                 return lista;
             } else {
@@ -246,6 +254,11 @@ public class FacadeAssistente {
     public Integer getEvento(String nome) throws SQLException{
         GerenciadorDeEvento evento = new GerenciadorDeEvento();
         return evento.getEvento(nome).getId();
+    }
+    
+    public Alocacao getAlocacao(String descricao) throws SQLException{
+        GerenciadorDeAlocacao alocacao = new GerenciadorDeAlocacao();
+        return alocacao.getAlocacao(descricao);
     }
     
     public boolean excluirBloco(String descricao) throws SQLException{

@@ -28,6 +28,10 @@ public abstract class SisLocAbstractTableModel<E> extends AbstractTableModel {
         fireTableDataChanged();
     }
     
+    public void RemoveAllElements(int... rowIndexs){
+        this.dados.removeAll(getElements(rowIndexs));
+    }
+    
     public List<E> removeElements(int... rowIndexs){
         List<E> elementos = new ArrayList<>();
         for(int i=0;i<rowIndexs.length;i++){

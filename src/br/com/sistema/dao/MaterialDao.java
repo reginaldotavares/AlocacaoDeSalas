@@ -39,10 +39,9 @@ public class MaterialDao implements MaterialDaoIF{
     public void inserirMaterial(Material material) throws SQLException {
         try {
             conexao.abrir();
-            String SQL = "insert into material(descricao, status) values (?,?)";
+            String SQL = "insert into material(descricao) values (?)";
             pstm = con.prepareStatement(SQL);
             pstm.setString(1, material.getDescricao());
-            pstm.setBoolean(2, true);
             pstm.executeUpdate();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
@@ -105,7 +104,7 @@ public class MaterialDao implements MaterialDaoIF{
             if (result.next()) {
                 material.setTombamento(result.getInt("tombamento"));
                 material.setDescricao(result.getString("descricao"));
-                material.setStatus(result.getBoolean("status"));
+//                material.setStatus(result.getBoolean("status"));
 
             }
             return material;
@@ -124,7 +123,7 @@ public class MaterialDao implements MaterialDaoIF{
         try {
             conexao.abrir();
 
-            String sql = "select descricao, tombamento, status from material";
+            String sql = "select descricao, tombamento from material";
 
             pstm = con.prepareStatement(sql);
             
@@ -134,7 +133,6 @@ public class MaterialDao implements MaterialDaoIF{
                 Material material = new Material();
                 material.setDescricao(result.getString("descricao"));
                 material.setTombamento(result.getInt("tombamento"));
-                material.setStatus(result.getBoolean("status"));
                 materiais.add(material);
             }
             return materiais;
@@ -162,7 +160,6 @@ public class MaterialDao implements MaterialDaoIF{
                 Material material = new Material();
                 material.setDescricao(result.getString("descricao"));
                 material.setTombamento(result.getInt("tombamento"));
-                material.setStatus(result.getBoolean("status"));
          
                 materiais.add(material);
             }
@@ -191,7 +188,6 @@ public class MaterialDao implements MaterialDaoIF{
                 Material material = new Material();
                 material.setDescricao(result.getString("descricao"));
                 material.setTombamento(result.getInt("tombamento"));
-                material.setStatus(result.getBoolean("status"));
          
                 materiais.add(material);
             }

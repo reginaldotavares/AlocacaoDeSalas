@@ -77,7 +77,7 @@ public class AlocacaoDao implements AlocacaoDaoIF{
             }
             return eventosAlocacoes;
         } catch(Exception E) { 
-            E.printStackTrace();
+            JOptionPane.showMessageDialog(null, E);
         } finally {
             conexao.liberar();
         }
