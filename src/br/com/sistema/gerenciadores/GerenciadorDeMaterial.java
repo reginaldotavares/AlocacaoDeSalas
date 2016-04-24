@@ -51,6 +51,16 @@ public class GerenciadorDeMaterial {
         return true;
     }
     
+    public boolean atualizaMaterialFalse(Integer tombamento) throws SQLException{
+        Material material = new Material();
+        material.setTombamento(tombamento);
+        
+        DaoFactoryIF fabrica = DaoFactory.creatFactory();
+        MaterialDaoIF materialDao = fabrica.criaMaterialDao();
+        materialDao.atualizarMaterialFalse(material);
+        return true;
+    }
+    
 //    public Material getMaterial(String descricao) throws SQLException {
 //        DaoFactoryIF fabrica = DaoFactory.creatFactory();
 //        MaterialDaoIF materialDao = fabrica.criaMaterialDao();
@@ -70,25 +80,38 @@ public class GerenciadorDeMaterial {
         AlocacaoMaterialDaoIF alocacaoMaterialDao = fabrica.criaAlocacaoMaterialDao();
         List<String[]> listaRetorno = new ArrayList();        
         List<Material> lista = materialDao.listarMaterial();        
-        int n = 0;
+        int n=0;
         for (int i = 0; i<lista.size();i++) {
-        List<AlocacaoMaterial> listaAlocacao = alocacaoMaterialDao.listarEventoAlocacao();
+        List<AlocacaoMaterial> listaAlocacao = alocacaoMaterialDao.listarAlocacaoMaterial();
             String nomeMaterial = lista.get(i).getDescricao();
             String tombamento = lista.get(i).getTombamento().toString();
-            String local = null;
-            String status = "Disponível";
-            if(listaAlocacao.size()>n){
-                String tombamento2 = listaAlocacao.get(n).getTombamento().toString();
-                tombamento2 = listaAlocacao.get(n).getTombamento().toString();
-                local = listaAlocacao.get(n).getLocal();
-                n++;
+            String local = "N/A";
+            String status;
+//            String status = "Disponível";
+//            for(int k=0;listaAlocacao.size()>k;k++){
+//            String tombamento2 = listaAlocacao.get(n).getTombamento().toString();
+                if (lista.get(i).getStatus() == true) {
+                    status = "Disponível";
+//                    n++;
+                    String[] materiais = new String[]{nomeMaterial, tombamento, status, local};
+                    listaRetorno.add(materiais);
+                }else {
+//                    if(tombamento2 == null ? tombamento == null : tombamento2.equals(tombamento)){
+//                    status = "Emprestado";  
+                    status = "Emprestado";
+                    if(n<lista.size()){
+                        local = listaAlocacao.get(n).getLocal();
+                        n++;
+                    }
+                    String[] materiais = new String[]{nomeMaterial, tombamento, status, local};
+                    listaRetorno.add(materiais);
+                }
+//            }
+                    
+//                }
             
-                        status = "Emprestado";    
-            }
-            
-            String[] materiais = new String[]{nomeMaterial, tombamento, status, local};
-            listaRetorno.add(materiais);
         }
+        
         
         return listaRetorno;
     }
@@ -116,6 +139,15 @@ public class GerenciadorDeMaterial {
         DaoFactoryIF fabrica = DaoFactory.creatFactory();
         MaterialDaoIF materialDao = fabrica.criaMaterialDao();        
         ArrayList<Material> lista = materialDao.listarMaterial();
+        
+        
+        return lista;
+    }
+    
+    public ArrayList ListarMateriaisSelecao() throws SQLException{
+        DaoFactoryIF fabrica = DaoFactory.creatFactory();
+        MaterialDaoIF materialDao = fabrica.criaMaterialDao();        
+        ArrayList<Material> lista = materialDao.listarMaterialSelecao();
         
         
         return lista;

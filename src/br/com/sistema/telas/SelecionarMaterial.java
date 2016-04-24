@@ -6,9 +6,14 @@
 package br.com.sistema.telas;
 
 import br.com.sistema.controller.FacadeAssistente;
+import br.com.sistema.gerenciadores.GerenciadorDeAlocacao;
+import br.com.sistema.gerenciadores.GerenciadorDeAlocacaoMaterial;
 import br.com.sistema.modelos.Alocacao;
+import br.com.sistema.modelos.AlocacaoMaterial;
+import br.com.sistema.modelos.EventoAlocacao;
 import br.com.sistema.modelos.Material;
 import br.com.sistema.modelos.ModeloTabelaMaterial;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +21,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -24,6 +32,7 @@ import javax.swing.table.DefaultTableModel;
  */
     public class SelecionarMaterial extends javax.swing.JFrame {
     FacadeAssistente fachadaAssistente = new FacadeAssistente();
+    TelaAssistenteSala telaAssistenteSala = new TelaAssistenteSala();
     private ModeloTabelaMaterial tabelaDireita;
     private ModeloTabelaMaterial tabelaEsquerda;
     private AlocarEvento telaEvento;
@@ -32,22 +41,32 @@ import javax.swing.table.DefaultTableModel;
      */
     public SelecionarMaterial() throws SQLException {
         initComponents();
-        ArrayList<Material> lista = fachadaAssistente.listarMateriais();
+        ArrayList<Material> lista = fachadaAssistente.listarMateriaisSelecao();
+        ArrayList<Material> lista2 = new ArrayList<>();
+        for (Material lista1 : lista) {
+            lista2.add(lista1);
+        }
         this.tabelaDireita = new ModeloTabelaMaterial();
         this.jTable2.setModel(tabelaDireita);
-        this.tabelaEsquerda = new ModeloTabelaMaterial(lista);
+        this.tabelaEsquerda = new ModeloTabelaMaterial(lista2);
         this.jTable1.setModel(tabelaEsquerda);
         if(tabelaEsquerda!=null){
             BotaoAdicionar.setEnabled(true);
-        }
+        }    
         
+        
+        
+
     }
 
-    SelecionarMaterial(AlocarEvento tela2, String descricao) throws SQLException {
+    SelecionarMaterial(AlocarEvento tela2, String descricao, TelaAssistenteSala telaAssistenteSala) throws SQLException {
         this();
         this.telaEvento = tela2;
         evento.setText(descricao);
+        this.telaAssistenteSala = telaAssistenteSala;
     }
+    
+    
     
     
 
@@ -73,6 +92,7 @@ import javax.swing.table.DefaultTableModel;
         cancelar = new javax.swing.JButton();
         cadastrar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        pesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alocar Material");
@@ -152,6 +172,13 @@ import javax.swing.table.DefaultTableModel;
         jLabel5.setForeground(new java.awt.Color(204, 0, 0));
         jLabel5.setText("Selecionar Material");
 
+        pesquisar.setText("Pesquisar");
+        pesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,11 +198,16 @@ import javax.swing.table.DefaultTableModel;
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BotaoRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BotaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BotaoRemoverTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BotaoRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(BotaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(BotaoRemoverTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(pesquisar)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -199,7 +231,9 @@ import javax.swing.table.DefaultTableModel;
                             .addComponent(jLabel1)
                             .addComponent(evento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(filtrarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(filtrarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pesquisar))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(55, 55, 55)
@@ -211,7 +245,7 @@ import javax.swing.table.DefaultTableModel;
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -248,41 +282,61 @@ import javax.swing.table.DefaultTableModel;
 
     private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarActionPerformed
         jTable2.selectAll();
-        List<Material> l = tabelaDireita.getElements(jTable2.getSelectedRows());
+        List<Material> l = tabelaDireita.getElements(jTable2.convertRowIndexToModel(jTable2.getSelectedRow()));
         List<Material> elementos = new ArrayList<>();
         for(int i=0;i<l.size();i++){
             try {
-//            elementos.add(l.get(i));
-                Integer tombamento = l.get(i).getTombamento();
-                String nomeEvento = evento.getText();
-//            String Str = nomeEvento;
-//                String[] TableLine;
-//                TableLine = nomeEvento.split(";");
-//                List lista = new ArrayList();
-//                for (String cell : TableLine) {
-//                    lista.add(cell);
-//                }
-//                String[] line = nomeEvento.split(" - ");
-//                String nome = line[0];
-                
-                Alocacao alocacao = fachadaAssistente.getAlocacao(nomeEvento);
-                String local = alocacao.getSala();
-                
                 try {
-                    if(fachadaAssistente.cadastrarAlocacaoMaterial(tombamento, nomeEvento, local)){
-                        JOptionPane.showMessageDialog(null, "Alocado com sucesso!");
+                    Integer tombamento = l.get(i).getTombamento();
+                    String nomeEvento = evento.getText();
+                    
+                    Alocacao alocacao = fachadaAssistente.getAlocacao(nomeEvento);
+                    String local = alocacao.getSala();
+                    
+                    AlocacaoMaterial alocMat = fachadaAssistente.getAlocacaoMaterialPorTombamento(tombamento);
+                    
+                    try {
+                        if(alocMat.getTombamento()!=null){
+                            this.dispose();
+                            JOptionPane.showMessageDialog(null, "Desculpe. Material acabou de ser alocado!");
+                            this.setVisible(true);
+                        }
+                        if(fachadaAssistente.cadastrarAlocacaoMaterial(tombamento, nomeEvento, local)){
+                            fachadaAssistente.editarFalse(tombamento);
+                            JOptionPane.showMessageDialog(null, "Alocado com sucesso!");
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(SelecionarMaterial.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } catch (SQLException ex) {
+                }catch (SQLException ex) {
                     Logger.getLogger(SelecionarMaterial.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                this.telaAssistenteSala.carregarJTableEvento();
+                this.telaAssistenteSala.carregarJTableSala();
+                this.telaAssistenteSala.carregarJTableMaterial();
+                this.dispose();
             }catch (SQLException ex) {
                 Logger.getLogger(SelecionarMaterial.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.dispose();
         }
        
+        
 
     }//GEN-LAST:event_cadastrarActionPerformed
+
+    private void pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarActionPerformed
+        TableRowSorter sorter = null;  
+        sorter = new TableRowSorter<>(tabelaEsquerda);  
+        jTable1.setRowSorter(sorter); 
+        
+        String text = filtrarMaterial.getText();  
+        if (text.length() == 0) {  
+                  sorter.setRowFilter(null);  
+        } else {  
+                  sorter.setRowFilter(RowFilter.regexFilter(text));  
+        }  
+
+    }//GEN-LAST:event_pesquisarActionPerformed
     
     public void verificarStatusBotaoRemover(List<Material> lista){
         
@@ -340,5 +394,6 @@ import javax.swing.table.DefaultTableModel;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JButton pesquisar;
     // End of variables declaration//GEN-END:variables
 }

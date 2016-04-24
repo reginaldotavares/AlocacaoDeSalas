@@ -22,7 +22,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -85,7 +87,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         pesquisar = new javax.swing.JButton();
-        MostrarTodos = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         Excluir1 = new javax.swing.JButton();
         Editar1 = new javax.swing.JButton();
@@ -102,13 +103,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jTextField2 = new javax.swing.JTextField();
         novo2 = new javax.swing.JButton();
-        MostrarTodos1 = new javax.swing.JButton();
         Editar2 = new javax.swing.JButton();
         pesquisar1 = new javax.swing.JButton();
         MostrarTodos4 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         novaSala = new javax.swing.JButton();
-        MostrarTodasSalas = new javax.swing.JButton();
         EditarSala = new javax.swing.JButton();
         ExcluirSala = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -192,14 +191,6 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        MostrarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listar.png"))); // NOI18N
-        MostrarTodos.setToolTipText("Listar Todos");
-        MostrarTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MostrarTodosActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -217,10 +208,8 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MostrarTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 958, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pesquisar))
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -247,8 +236,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(novo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Excluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(MostrarTodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(Excluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(45, 45, 45)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(172, 172, 172)
@@ -391,14 +379,6 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        MostrarTodos1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listar.png"))); // NOI18N
-        MostrarTodos1.setToolTipText("Exibir Materiais");
-        MostrarTodos1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MostrarTodos1ActionPerformed(evt);
-            }
-        });
-
         Editar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/editar3.png"))); // NOI18N
         Editar2.setToolTipText("Editar Material");
         Editar2.addActionListener(new java.awt.event.ActionListener() {
@@ -430,7 +410,7 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1328, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(novo2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -438,11 +418,9 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Excluir2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MostrarTodos1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(MostrarTodos4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 855, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField2)
                         .addGap(18, 18, 18)
                         .addComponent(pesquisar1)))
                 .addGap(42, 42, 42))
@@ -458,7 +436,6 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(Editar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Excluir2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MostrarTodos1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MostrarTodos4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(novo2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
@@ -489,14 +466,6 @@ public class TelaInicial extends javax.swing.JFrame {
         novaSala.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 novaSalaActionPerformed(evt);
-            }
-        });
-
-        MostrarTodasSalas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listar.png"))); // NOI18N
-        MostrarTodasSalas.setToolTipText("Exibir Materiais");
-        MostrarTodasSalas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MostrarTodasSalasActionPerformed(evt);
             }
         });
 
@@ -557,9 +526,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(EditarSala, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ExcluirSala, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MostrarTodasSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField4)
                         .addGap(18, 18, 18)
                         .addComponent(pesquisar3)))
@@ -576,8 +543,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(novaSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(EditarSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ExcluirSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MostrarTodasSalas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(ExcluirSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(53, 53, 53)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -766,7 +732,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_ExcluirActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
-        int linha = jTable1.getSelectedRow();
+        int linha = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
         if (linha != -1) {
 
             try {
@@ -984,24 +950,19 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_Excluir1ActionPerformed
 
     private void pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarActionPerformed
-        String pesq = jTextField1.getText();
-
-        try {
-            pesquisarJTable(pesq);
-            mensagem = true;
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        TableRowSorter sorter = null; 
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); 
+        sorter = new TableRowSorter<>(model);  
+        jTable1.setRowSorter(sorter); 
+        
+        String text = jTextField1.getText();  
+        if (text.length() == 0) {  
+                  sorter.setRowFilter(null);  
+        } else {  
+                  sorter.setRowFilter(RowFilter.regexFilter(text));  
         }
          
     }//GEN-LAST:event_pesquisarActionPerformed
-
-    private void MostrarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarTodosActionPerformed
-        try {
-            carregarJTable();
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_MostrarTodosActionPerformed
 
     private void Excluir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Excluir2ActionPerformed
         int[] linhas = jTable2.getSelectedRows();
@@ -1088,17 +1049,8 @@ public class TelaInicial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_novo2ActionPerformed
 
-    private void MostrarTodos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarTodos1ActionPerformed
-        try {
-            carregarJTableMaterial();
-            jTextField2.setText("");
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_MostrarTodos1ActionPerformed
-
     private void Editar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar2ActionPerformed
-        int linha = jTable2.getSelectedRow();
+        int linha = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
         if (linha != -1) {
 
             try {
@@ -1122,13 +1074,16 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_Editar2ActionPerformed
 
     private void pesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar1ActionPerformed
-        String pesq = jTextField2.getText();
-
-        try {
-            pesquisarJTableMaterial(pesq);
-            mensagem = true;
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        TableRowSorter sorter = null; 
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel(); 
+        sorter = new TableRowSorter<>(model);  
+        jTable2.setRowSorter(sorter); 
+        
+        String text = jTextField2.getText();  
+        if (text.length() == 0) {  
+                  sorter.setRowFilter(null);  
+        } else {  
+                  sorter.setRowFilter(RowFilter.regexFilter(text));  
         }
     }//GEN-LAST:event_pesquisar1ActionPerformed
 
@@ -1151,17 +1106,8 @@ public class TelaInicial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_novaSalaActionPerformed
 
-    private void MostrarTodasSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarTodasSalasActionPerformed
-        try {
-            carregarJTableSala();
-            jTextField4.setText("");
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_MostrarTodasSalasActionPerformed
-
     private void EditarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarSalaActionPerformed
-        int linha = jTable4.getSelectedRow();
+        int linha = jTable4.convertRowIndexToModel(jTable4.getSelectedRow());
         if (linha != -1) {
 
             try {
@@ -1171,7 +1117,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     carregarEditarSala(lista);
                     jTextField4.setText("");
                 }else{
-                    String[] lista = fachadaAssistente.listarSala().get(linha);
+                    String[] lista = fachadaAssistente.listarPesquisaSala().get(linha);
                     carregarEditarSala(lista);
                 }
 
@@ -1257,13 +1203,16 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void pesquisar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar3ActionPerformed
-        String pesq = jTextField4.getText();
-
-        try {
-            pesquisarJTableSala(pesq);
-            mensagem = true;
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        TableRowSorter sorter = null; 
+        DefaultTableModel model = (DefaultTableModel) jTable4.getModel(); 
+        sorter = new TableRowSorter<>(model);  
+        jTable4.setRowSorter(sorter); 
+        
+        String text = jTextField4.getText();  
+        if (text.length() == 0) {  
+                  sorter.setRowFilter(null);  
+        } else {  
+                  sorter.setRowFilter(RowFilter.regexFilter(text));  
         }
     }//GEN-LAST:event_pesquisar3ActionPerformed
 
@@ -1326,9 +1275,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton Excluir2;
     private javax.swing.JButton ExcluirSala;
     private javax.swing.JTabbedPane JTable2;
-    private javax.swing.JButton MostrarTodasSalas;
-    private javax.swing.JButton MostrarTodos;
-    private javax.swing.JButton MostrarTodos1;
     private javax.swing.JButton MostrarTodos4;
     private javax.swing.JButton addDados;
     private javax.swing.JButton addLinha;
@@ -1489,7 +1435,8 @@ public class TelaInicial extends javax.swing.JFrame {
         for (String[] materiais : lista) {
             modelo.addRow(new String[]{materiais[0],
                 materiais[1],
-                materiais[2]});
+                materiais[2],
+                materiais[3]});
         }
         jTable2.setModel(modelo);
 
@@ -1510,7 +1457,8 @@ public class TelaInicial extends javax.swing.JFrame {
         for (String[] salas : lista) {
             modelo.addRow(new String[]{salas[0],
                 salas[1],
-                salas[2]});
+                salas[2],
+                salas[4]});
         }
         jTable4.setModel(modelo);
 

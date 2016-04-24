@@ -10,6 +10,8 @@ import br.com.sistema.fabricas.DaoFactoryIF;
 import br.com.sistema.interfaces.AlocacaoMaterialDaoIF;
 import br.com.sistema.modelos.AlocacaoMaterial;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,5 +27,34 @@ public class GerenciadorDeAlocacaoMaterial {
         AlocacaoMaterialDaoIF alocacao = fabrica.criaAlocacaoMaterialDao();
         alocacao.inserirAlocacaoMaterial(novaAlocacaoMaterial);
         return true;
+    }
+    
+    public List<AlocacaoMaterial> listarAlocacaoMaterial() throws SQLException{
+        DaoFactoryIF fabrica = DaoFactory.creatFactory();
+        AlocacaoMaterialDaoIF alocacaoMaterialDao = fabrica.criaAlocacaoMaterialDao();
+        List<AlocacaoMaterial> listaRetorno = new ArrayList<AlocacaoMaterial>();        
+        List<AlocacaoMaterial> lista = alocacaoMaterialDao.listarAlocacaoMaterial();
+        for (AlocacaoMaterial lista1 : lista) {
+            Integer id = lista1.getId();
+            Integer tombamento = lista1.getTombamento();
+            String nomeEvento = lista1.getNomeEvento();
+            String local = lista1.getLocal();
+            AlocacaoMaterial alocacao = new AlocacaoMaterial(id, tombamento, nomeEvento, local);
+            listaRetorno.add(alocacao);
+        }
+        
+        return listaRetorno;
+    }
+    
+    public AlocacaoMaterial getAlocacaoMaterial(String local) throws SQLException{
+        DaoFactoryIF fabrica = DaoFactory.creatFactory();
+        AlocacaoMaterialDaoIF AlocacaoMaterialDao = fabrica.criaAlocacaoMaterialDao();
+        return AlocacaoMaterialDao.getAlocacaoMaterial(local);
+    }
+    
+    public AlocacaoMaterial getAlocacaoMaterialPorTombamento(Integer tombamento) throws SQLException{
+        DaoFactoryIF fabrica = DaoFactory.creatFactory();
+        AlocacaoMaterialDaoIF AlocacaoMaterialDao = fabrica.criaAlocacaoMaterialDao();
+        return AlocacaoMaterialDao.getAlocacaoMaterialPorTombamento(tombamento);
     }
 }

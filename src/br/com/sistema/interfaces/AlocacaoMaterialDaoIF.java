@@ -24,8 +24,10 @@ public interface AlocacaoMaterialDaoIF {
     
     public List pesquisar(Integer id) throws SQLException;
     
-    public AlocacaoMaterial getAlocacaoMaterial(Integer id) throws SQLException;
+    public AlocacaoMaterial getAlocacaoMaterial(String local) throws SQLException;
     
-    public List<AlocacaoMaterial> listarEventoAlocacao() throws SQLException;
+    public AlocacaoMaterial getAlocacaoMaterialPorTombamento(Integer tombamento) throws SQLException;
+    
+    public List<AlocacaoMaterial> listarAlocacaoMaterial() throws SQLException;
   
 }

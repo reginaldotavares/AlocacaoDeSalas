@@ -93,6 +93,12 @@ public class GerenciadorDeAlocacao {
         AlocacaoDaoIF AlocacaoDao = fabrica.criaAlocacaoDao();
         return AlocacaoDao.getAlocacao(descricao);
     }
+    
+    public Alocacao getAlocacaoPorSala(String sala) throws SQLException{
+        DaoFactoryIF fabrica = DaoFactory.creatFactory();
+        AlocacaoDaoIF AlocacaoDao = fabrica.criaAlocacaoDao();
+        return AlocacaoDao.getAlocacaoPorSala(sala);
+    }
 //    
 //    public void removerAlocacao(String descricao) throws SQLException{
 //        DaoFactoryIF fabrica = DaoFactory.creatFactory();

@@ -198,10 +198,8 @@
                               <Component id="Editar" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="Excluir" min="-2" pref="60" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="MostrarTodos" min="-2" pref="56" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField1" min="-2" pref="900" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jTextField1" min="-2" pref="958" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="pesquisar" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -236,7 +234,6 @@
                                   <Component id="novo" max="32767" attributes="0"/>
                                   <Component id="Editar" alignment="0" max="32767" attributes="0"/>
                                   <Component id="Excluir" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="MostrarTodos" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -340,17 +337,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pesquisarActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="MostrarTodos">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/imagens/listar.png"/>
-                </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Listar Todos"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MostrarTodosActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -536,7 +522,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jScrollPane3" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" pref="1328" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="novo2" min="-2" pref="60" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -544,11 +530,9 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="Excluir2" min="-2" pref="60" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="MostrarTodos1" min="-2" pref="60" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="MostrarTodos4" min="-2" pref="60" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jTextField2" pref="855" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jTextField2" max="32767" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="pesquisar1" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -569,7 +553,6 @@
                               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="Editar2" alignment="0" max="32767" attributes="0"/>
                                   <Component id="Excluir2" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="MostrarTodos1" alignment="0" max="32767" attributes="0"/>
                                   <Component id="MostrarTodos4" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <Component id="novo2" alignment="0" min="-2" pref="49" max="-2" attributes="0"/>
@@ -628,17 +611,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="novo2ActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="MostrarTodos1">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/imagens/listar.png"/>
-                    </Property>
-                    <Property name="toolTipText" type="java.lang.String" value="Exibir Materiais"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MostrarTodos1ActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="Editar2">
@@ -700,9 +672,7 @@
                               <Component id="EditarSala" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="ExcluirSala" min="-2" pref="60" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="MostrarTodasSalas" min="-2" pref="60" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jTextField4" max="32767" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="pesquisar3" min="-2" max="-2" attributes="0"/>
@@ -725,7 +695,6 @@
                               <Component id="novaSala" alignment="0" max="32767" attributes="0"/>
                               <Component id="EditarSala" alignment="0" max="32767" attributes="0"/>
                               <Component id="ExcluirSala" alignment="0" max="32767" attributes="0"/>
-                              <Component id="MostrarTodasSalas" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
@@ -745,17 +714,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="novaSalaActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="MostrarTodasSalas">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/imagens/listar.png"/>
-                </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Exibir Materiais"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MostrarTodasSalasActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="EditarSala">

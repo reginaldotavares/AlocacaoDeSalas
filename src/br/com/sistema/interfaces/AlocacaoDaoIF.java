@@ -32,4 +32,6 @@ public interface AlocacaoDaoIF {
     public List<EventoAlocacao> listarEventoAlocacao() throws SQLException;
     
     public List DataAtualMaior() throws SQLException;
+    
+    public Alocacao getAlocacaoPorSala(String local) throws SQLException;
 }

@@ -20,7 +20,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -80,7 +82,6 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jTextField2 = new javax.swing.JTextField();
         novo2 = new javax.swing.JButton();
-        MostrarTodos1 = new javax.swing.JButton();
         Editar2 = new javax.swing.JButton();
         pesquisar1 = new javax.swing.JButton();
         MostrarTodos4 = new javax.swing.JButton();
@@ -91,11 +92,9 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
         ExcluirBloco = new javax.swing.JButton();
         EditarBloco = new javax.swing.JButton();
         novoBloco = new javax.swing.JButton();
-        MostrarTodosBlocos = new javax.swing.JButton();
         pesquisar2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         novaSala = new javax.swing.JButton();
-        MostrarTodasSalas = new javax.swing.JButton();
         EditarSala = new javax.swing.JButton();
         ExcluirSala = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -109,7 +108,6 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
         jTable5 = new javax.swing.JTable();
         jTextField5 = new javax.swing.JTextField();
         novoEvento = new javax.swing.JButton();
-        MostrarTodosEventos = new javax.swing.JButton();
         pesquisar4 = new javax.swing.JButton();
         logado1 = new javax.swing.JLabel();
 
@@ -182,14 +180,6 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
             }
         });
 
-        MostrarTodos1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listar.png"))); // NOI18N
-        MostrarTodos1.setToolTipText("Exibir Materiais");
-        MostrarTodos1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MostrarTodos1ActionPerformed(evt);
-            }
-        });
-
         Editar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/editar3.png"))); // NOI18N
         Editar2.setToolTipText("Editar Material");
         Editar2.addActionListener(new java.awt.event.ActionListener() {
@@ -229,8 +219,6 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Excluir2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MostrarTodos1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(MostrarTodos4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 836, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -249,7 +237,6 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(Editar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Excluir2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MostrarTodos1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MostrarTodos4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(novo2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
@@ -302,14 +289,6 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
             }
         });
 
-        MostrarTodosBlocos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listar.png"))); // NOI18N
-        MostrarTodosBlocos.setToolTipText("Exibir Blocos");
-        MostrarTodosBlocos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MostrarTodosBlocosActionPerformed(evt);
-            }
-        });
-
         pesquisar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar2.png"))); // NOI18N
         pesquisar2.setText("Pesquisar");
         pesquisar2.addActionListener(new java.awt.event.ActionListener() {
@@ -332,13 +311,11 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
                         .addComponent(EditarBloco, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ExcluirBloco, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MostrarTodosBlocos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 892, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 966, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(pesquisar2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,8 +328,7 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(novoBloco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(EditarBloco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ExcluirBloco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MostrarTodosBlocos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(ExcluirBloco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
@@ -365,14 +341,6 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
         novaSala.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 novaSalaActionPerformed(evt);
-            }
-        });
-
-        MostrarTodasSalas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listar.png"))); // NOI18N
-        MostrarTodasSalas.setToolTipText("Exibir Materiais");
-        MostrarTodasSalas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MostrarTodasSalasActionPerformed(evt);
             }
         });
 
@@ -433,10 +401,8 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
                         .addComponent(EditarSala, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ExcluirSala, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MostrarTodasSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 897, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 971, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(pesquisar3)))
                 .addGap(141, 141, 141))
@@ -452,8 +418,7 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(novaSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(EditarSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ExcluirSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MostrarTodasSalas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(ExcluirSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(53, 53, 53)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -504,14 +469,6 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
             }
         });
 
-        MostrarTodosEventos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/listar.png"))); // NOI18N
-        MostrarTodosEventos.setToolTipText("Listar todos os Eventos");
-        MostrarTodosEventos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MostrarTodosEventosActionPerformed(evt);
-            }
-        });
-
         pesquisar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar2.png"))); // NOI18N
         pesquisar4.setText("Pesquisar");
         pesquisar4.addActionListener(new java.awt.event.ActionListener() {
@@ -534,10 +491,8 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
                         .addComponent(AlocarSala, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(DesalocarSala, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MostrarTodosEventos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 895, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 969, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(pesquisar4)))
                 .addGap(151, 151, 151))
@@ -553,8 +508,7 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(novoEvento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(AlocarSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(DesalocarSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MostrarTodosEventos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(DesalocarSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(52, 52, 52)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -857,17 +811,8 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_novo2ActionPerformed
 
-    private void MostrarTodos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarTodos1ActionPerformed
-        try {
-            carregarJTableMaterial();
-            jTextField2.setText("");
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_MostrarTodos1ActionPerformed
-
     private void Editar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar2ActionPerformed
-        int linha = jTable2.getSelectedRow();
+        int linha = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
         if (linha != -1) {
 
             try {
@@ -892,13 +837,16 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
     }//GEN-LAST:event_Editar2ActionPerformed
 
     private void pesquisar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar1ActionPerformed
-        String pesq = jTextField2.getText();
-
-        try {
-            pesquisarJTable(pesq);
-            mensagem = true;
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        TableRowSorter sorter = null; 
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel(); 
+        sorter = new TableRowSorter<>(model);  
+        jTable2.setRowSorter(sorter); 
+        
+        String text = jTextField2.getText();  
+        if (text.length() == 0) {  
+                  sorter.setRowFilter(null);  
+        } else {  
+                  sorter.setRowFilter(RowFilter.regexFilter(text));  
         }
     }//GEN-LAST:event_pesquisar1ActionPerformed
 
@@ -979,7 +927,7 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
     }//GEN-LAST:event_ExcluirBlocoActionPerformed
 
     private void EditarBlocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarBlocoActionPerformed
-        int linha = jTable3.getSelectedRow();
+        int linha = jTable3.convertRowIndexToModel(jTable3.getSelectedRow());
         if (linha != -1) {
 
             try {
@@ -1008,23 +956,17 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_novoBlocoActionPerformed
 
-    private void MostrarTodosBlocosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarTodosBlocosActionPerformed
-        try {
-            carregarJTableBloco();
-            jTextField3.setText("");
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_MostrarTodosBlocosActionPerformed
-
     private void pesquisar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar2ActionPerformed
-        String pesq = jTextField3.getText();
-
-        try {
-            pesquisarJTableBloco(pesq);
-            mensagem = true;
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        TableRowSorter sorter = null; 
+        DefaultTableModel model = (DefaultTableModel) jTable3.getModel(); 
+        sorter = new TableRowSorter<>(model);  
+        jTable3.setRowSorter(sorter); 
+        
+        String text = jTextField3.getText();  
+        if (text.length() == 0) {  
+                  sorter.setRowFilter(null);  
+        } else {  
+                  sorter.setRowFilter(RowFilter.regexFilter(text));  
         }
     }//GEN-LAST:event_pesquisar2ActionPerformed
 
@@ -1043,17 +985,8 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_novaSalaActionPerformed
 
-    private void MostrarTodasSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarTodasSalasActionPerformed
-        try {
-            carregarJTableSala();
-            jTextField4.setText("");
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_MostrarTodasSalasActionPerformed
-
     private void EditarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarSalaActionPerformed
-        int linha = jTable4.getSelectedRow();
+        int linha = jTable4.convertRowIndexToModel(jTable4.getSelectedRow());
         if (linha != -1) {
 
             try {
@@ -1063,7 +996,7 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
                     carregarEditarSala(lista);
                     jTextField4.setText("");
                 }else{
-                    String[] lista = fachadaAssistente.listarSala().get(linha);
+                    String[] lista = fachadaAssistente.listarPesquisaSala().get(linha);
                     carregarEditarSala(lista);
                 }
 
@@ -1165,37 +1098,33 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void pesquisar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar3ActionPerformed
-        String pesq = jTextField4.getText();
-
-        try {
-            pesquisarJTableSala(pesq);
-            mensagem = true;
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        TableRowSorter sorter = null; 
+        DefaultTableModel model = (DefaultTableModel) jTable4.getModel(); 
+        sorter = new TableRowSorter<>(model);  
+        jTable4.setRowSorter(sorter); 
+        
+        String text = jTextField4.getText();  
+        if (text.length() == 0) {  
+                  sorter.setRowFilter(null);  
+        } else {  
+                  sorter.setRowFilter(RowFilter.regexFilter(text));  
+        } 
     }//GEN-LAST:event_pesquisar3ActionPerformed
 
     private void AlocarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlocarSalaActionPerformed
-        int linha = jTable5.getSelectedRow();
-        if (linha != -1) {
-            
-                try {
-                    Evento lista = fachadaAssistente.listarEventoCampo().get(linha);
-                    String evento = lista.toString();
-                    String nome = lista.getNome();
-                    AlocarEvento tela;
-                    TelaAssistenteSala tela2 = this;
-                    tela = new AlocarEvento(tela2, nome);
-                    tela.recebeParametros(evento);
-                    tela.setVisible(true);
-                    carregarJTableEvento();
-                } catch (SQLException ex) {
-                    Logger.getLogger(TelaAssistenteSala.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(TelaAssistenteSala.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
+        
+        try {
+            AlocarEvento tela;
+            TelaAssistenteSala tela2 = this;
+            tela = new AlocarEvento(tela2);
+            tela.setVisible(true);
+            carregarJTableEvento();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaAssistenteSala.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(TelaAssistenteSala.class.getName()).log(Level.SEVERE, null, ex);
         }
+           
     }//GEN-LAST:event_AlocarSalaActionPerformed
 
     private void DesalocarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DesalocarSalaActionPerformed
@@ -1220,12 +1149,18 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_novoEventoActionPerformed
 
-    private void MostrarTodosEventosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarTodosEventosActionPerformed
-        
-    }//GEN-LAST:event_MostrarTodosEventosActionPerformed
-
     private void pesquisar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisar4ActionPerformed
-        // TODO add your handling code here:
+        TableRowSorter sorter = null; 
+        DefaultTableModel model = (DefaultTableModel) jTable5.getModel(); 
+        sorter = new TableRowSorter<>(model);  
+        jTable5.setRowSorter(sorter); 
+        
+        String text = jTextField5.getText();  
+        if (text.length() == 0) {  
+                  sorter.setRowFilter(null);  
+        } else {  
+                  sorter.setRowFilter(RowFilter.regexFilter(text));  
+        } 
     }//GEN-LAST:event_pesquisar4ActionPerformed
 
     public void pesquisarJTable(String descricao) throws SQLException {
@@ -1243,7 +1178,8 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
         for (String[] materiais : lista) {
             modelo.addRow(new String[]{materiais[0],
                 materiais[1],
-                materiais[2]});
+                materiais[2],
+                materiais[3]});
         }
         jTable2.setModel(modelo);
 
@@ -1278,9 +1214,10 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
         }
 
         for (String[] salas : lista) {
-            modelo.addRow(new String[]{salas[0],
-                salas[1],
-                salas[2]});
+            modelo.addRow(new String[]{salas[1],
+                salas[2],
+                salas[3],
+                salas[4]});
         }
         jTable4.setModel(modelo);
 
@@ -1383,11 +1320,7 @@ public class TelaAssistenteSala extends javax.swing.JFrame {
     private javax.swing.JButton Excluir2;
     private javax.swing.JButton ExcluirBloco;
     private javax.swing.JButton ExcluirSala;
-    private javax.swing.JButton MostrarTodasSalas;
-    private javax.swing.JButton MostrarTodos1;
     private javax.swing.JButton MostrarTodos4;
-    private javax.swing.JButton MostrarTodosBlocos;
-    private javax.swing.JButton MostrarTodosEventos;
     private javax.swing.JButton editarPerfil;
     private javax.swing.JLabel email;
     private javax.swing.JLabel foto;

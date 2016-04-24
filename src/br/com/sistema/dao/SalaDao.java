@@ -192,6 +192,5 @@ public class SalaDao implements SalaDaoIF{
     @Override
     public Vector<Sala> carregaCombo() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    }    
 }

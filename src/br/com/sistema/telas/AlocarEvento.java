@@ -35,6 +35,7 @@ public class AlocarEvento extends javax.swing.JFrame {
     boolean mensagem = false;
     private TelaAssistenteSala telaAssistente;
     String nomeEvento;
+    List<String[]> lista = fachadaAssistente.listarSala();
     
     /**
      * Creates new form AlocarEvento
@@ -49,7 +50,7 @@ public class AlocarEvento extends javax.swing.JFrame {
             descricao.setModel(new DefaultComboBoxModel(vetorEvento));    
         }else descricao.setModel(new DefaultComboBoxModel(vetorString));
         carregarJTableAlocarEvento();
-//        descricao.setText(nomeEvento);
+
     }
     
     public AlocarEvento(TelaAssistenteSala telaAssistenteSala, String NomeEvento) throws IOException, SQLException {
@@ -68,7 +69,7 @@ public class AlocarEvento extends javax.swing.JFrame {
     }
     
     public void carregarJTableAlocarEvento() throws SQLException {
-        List<String[]> lista = fachadaAssistente.listarSala();
+        
         DefaultTableModel modelo = new javax.swing.table.DefaultTableModel();
         modelo.addColumn("Sala");
         modelo.addColumn("Bloco");
@@ -76,10 +77,11 @@ public class AlocarEvento extends javax.swing.JFrame {
         if (lista.isEmpty()) {
             modelo.addRow(new String[]{"sem dados", null});
         }
-
         for (String[] materiais : lista) {
-            modelo.addRow(new String[]{materiais[1],
-                materiais[2]});
+            if("Disponível".equals(materiais[4])){
+                modelo.addRow(new String[]{materiais[1],
+                    materiais[2]});    
+            }
         }
         jTable1.setModel(modelo);
 
@@ -200,10 +202,11 @@ public class AlocarEvento extends javax.swing.JFrame {
             String Str = desc;
             String[] TableLine;
             TableLine = Str.split(";");
-            List lista = new ArrayList();
+            List lista3 = new ArrayList();
             for (String cell : TableLine) {
-                lista.add(cell);
+                lista3.add(cell);
             }
+            String[] l = null;
             String[] line = Str.split(" - ");
             String capacidade = line[1];
             nomeEvento = line[0];
@@ -211,19 +214,23 @@ public class AlocarEvento extends javax.swing.JFrame {
             int linha = jTable1.getSelectedRow();
             if (linha != -1) {
                 try {
-//                    nomeEvento=vetorEvento.get(linha).getNome();
-                    String[] lista1 = fachadaAssistente.listarSala().get(linha);
-                    Integer id_sala = Integer.parseInt(lista1[0]);
+                    for (String[] materiais : lista) {
+                        if ("Disponível".equals(materiais[4])) {
+                            l = (new String[]{materiais[1],
+                                materiais[2]});
+                        }
+                    }
                     Integer id_evento = fachadaAssistente.getEvento(nomeEvento);
-                    String sala = lista1[2]+" - "+lista1[1];
-                    int capacidadeSala = Integer.parseInt(lista1[3]);
+                    String sala = l[2]+" - "+l[1];
+                    int capacidadeSala = Integer.parseInt(l[3]);
+                    
                     if(capacidadeSala >= capacidadeEvento && descricao !=null){
                         if(fachadaAssistente.cadastrarAlocacao(id_evento, desc, sala)){
                             JOptionPane.showMessageDialog(null, "Alocado com sucesso!");
                             SelecionarMaterial tela;
                             this.telaAssistente.carregarJTableEvento();
                             AlocarEvento tela2 = this;
-                            tela = new SelecionarMaterial(tela2, desc);
+                            tela = new SelecionarMaterial(tela2, desc, telaAssistente);
                             tela.setVisible(true);
                         }else JOptionPane.showMessageDialog(null, "Erro na alocação!");
                         this.dispose();

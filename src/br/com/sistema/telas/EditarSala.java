@@ -109,7 +109,8 @@ public class EditarSala extends javax.swing.JFrame {
 
         jLabel4.setText("Capacidade");
 
-        bloco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        bloco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<Selecione>" }));
+        bloco.setSelectedItem(bloco);
 
         Editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/editar3.png"))); // NOI18N
         Editar.setText("Editar");
@@ -242,7 +243,7 @@ public class EditarSala extends javax.swing.JFrame {
     
     public void recebeParametros(List lista) throws SQLException {
         descricao.setText((String) lista.get(0));
-        bloco.setSelectedItem((String) lista.get(1));
+        bloco.getModel().setSelectedItem((String) lista.get(1));
         capacidade.setValue(lista.get(2));
         tipo.setSelectedItem((String) lista.get(3));
     }

@@ -12,6 +12,7 @@ import br.com.sistema.gerenciadores.GerenciadorDeEvento;
 import br.com.sistema.gerenciadores.GerenciadorDeMaterial;
 import br.com.sistema.gerenciadores.GerenciadorDeSala;
 import br.com.sistema.modelos.Alocacao;
+import br.com.sistema.modelos.AlocacaoMaterial;
 import br.com.sistema.modelos.Bloco;
 import br.com.sistema.modelos.Evento;
 import br.com.sistema.modelos.Material;
@@ -82,6 +83,11 @@ public class FacadeAssistente {
         GerenciadorDeMaterial material = new GerenciadorDeMaterial();
         return material.ListarMateriais();
     }
+
+    public ArrayList<Material> listarMateriaisSelecao() throws SQLException {
+        GerenciadorDeMaterial material = new GerenciadorDeMaterial();
+        return material.ListarMateriaisSelecao();
+    }
     
     public List<String[]> listarBloco() throws SQLException {
         GerenciadorDeBloco bloco = new GerenciadorDeBloco();
@@ -91,6 +97,11 @@ public class FacadeAssistente {
     public List<String[]> listarSala() throws SQLException {
         GerenciadorDeSala sala = new GerenciadorDeSala();
         return sala.listarSala();
+    }
+    
+    public List<String[]> listarPesquisaSala() throws SQLException {
+        GerenciadorDeSala sala = new GerenciadorDeSala();
+        return sala.ListarpesquisarSala();
     }
     
     public List<String[]> listarEvento() throws SQLException {
@@ -124,7 +135,7 @@ public class FacadeAssistente {
     }
     
     public List<String[]> retornarSala(String nome) throws SQLException{
-         List lista = new ArrayList();
+        List lista = new ArrayList();
         try {
             GerenciadorDeSala sala = new GerenciadorDeSala();
             if (sala.getSala(nome)!= null) {
@@ -218,6 +229,13 @@ public class FacadeAssistente {
                 JOptionPane.showMessageDialog(null, "Não Atualizado!");
             }
     }
+    
+    public void editarFalse(Integer tombamento) throws SQLException {
+        GerenciadorDeMaterial material = new GerenciadorDeMaterial();
+        material.atualizaMaterialFalse(tombamento);
+            
+    }
+    
     public void editarBloco(String descricao, Integer id) throws SQLException {
         GerenciadorDeBloco bloco = new GerenciadorDeBloco();
         Boolean foi = bloco.atualizaBloco(descricao, id);
@@ -259,6 +277,21 @@ public class FacadeAssistente {
     public Alocacao getAlocacao(String descricao) throws SQLException{
         GerenciadorDeAlocacao alocacao = new GerenciadorDeAlocacao();
         return alocacao.getAlocacao(descricao);
+    }
+    
+    public Alocacao getAlocacaoPorSala(String sala) throws SQLException{
+        GerenciadorDeAlocacao alocacao = new GerenciadorDeAlocacao();
+        return alocacao.getAlocacaoPorSala(sala);
+    }
+    
+    public AlocacaoMaterial getAlocacaoMaterial(String local) throws SQLException{
+        GerenciadorDeAlocacaoMaterial alocacaoMaterial = new GerenciadorDeAlocacaoMaterial();
+        return alocacaoMaterial.getAlocacaoMaterial(local);
+    }
+    
+    public AlocacaoMaterial getAlocacaoMaterialPorTombamento(Integer tombamento) throws SQLException{
+        GerenciadorDeAlocacaoMaterial alocacaoMaterial = new GerenciadorDeAlocacaoMaterial();
+        return alocacaoMaterial.getAlocacaoMaterialPorTombamento(tombamento);
     }
     
     public boolean excluirBloco(String descricao) throws SQLException{

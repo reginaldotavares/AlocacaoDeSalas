@@ -10,8 +10,10 @@ import br.com.sistema.dao.AlocacaoDao;
 import br.com.sistema.fabricas.DaoFactory;
 import br.com.sistema.fabricas.DaoFactoryIF;
 import br.com.sistema.interfaces.AlocacaoDaoIF;
+import br.com.sistema.interfaces.AlocacaoMaterialDaoIF;
 import br.com.sistema.interfaces.EventoDaoIF;
 import br.com.sistema.modelos.Alocacao;
+import br.com.sistema.modelos.AlocacaoMaterial;
 import br.com.sistema.modelos.Evento;
 import br.com.sistema.modelos.EventoAlocacao;
 import java.sql.Date;
@@ -44,8 +46,8 @@ public class GerenciadorDeEvento {
     
     public List<String[]> listarEvento() throws SQLException{
         DaoFactoryIF fabrica = DaoFactory.creatFactory();
-//        EventoDaoIF eventoDao = fabrica.criaEventoDao();
         AlocacaoDaoIF alocacaoDao = fabrica.criaAlocacaoDao();
+        AlocacaoMaterialDaoIF alocacaoMaterialDao = fabrica.criaAlocacaoMaterialDao();
         List<String[]> listaRetorno = new ArrayList();        
         List<EventoAlocacao> lista = alocacaoDao.listarEventoAlocacao();
         for (EventoAlocacao lista1 : lista) {
@@ -60,51 +62,31 @@ public class GerenciadorDeEvento {
             Timestamp dataDeHoje = new Timestamp(System.currentTimeMillis());
             List<EventoAlocacao> lis = alocacaoDao.DataBetween();
             List<EventoAlocacao> l = alocacaoDao.DataAtualMaior();
+            AlocacaoMaterial alocMat = alocacaoMaterialDao.getAlocacaoMaterial(local);
+            String localMaterial = alocMat.getLocal();
             boolean mensagem = false;
             if(lis!=null){
                 for(EventoAlocacao lista2 : lis){
-                        if(lista1.getNomeEvento().equals(lista2.getNomeEvento())){
-                            if(lista2.getNomeEvento()!=null){
-                                situacao = "em andamento";
-                            }
-                        } else mensagem=true;              
+                    if(lista1.getNomeEvento().equals(lista2.getNomeEvento())){
+                        if(lista2.getNomeEvento()!=null){
+                            situacao = "em andamento";
+                        }
+                    } else mensagem=true;              
                 }
             }else mensagem=true;
             if(mensagem == true){
-                if(dataDeHoje.getTime() > lista1.getInicio().getTime()){
+                if(dataDeHoje.getTime() > lista1.getInicio().getTime()&& localMaterial!=null){
                     situacao = "Concluído com Pendência";
+                }else if(dataDeHoje.getTime() > lista1.getInicio().getTime()&& localMaterial == null){
+                    situacao = "Concluído";
                 }else if(local == null){
                     situacao = "Pendente de Alocação";
                 }else situacao = "Agendado";
-            }
-            
-            
-//            if(lista1.getLocal()!=null){
-//                if(lista1.getLocal()!=null){
-//                    situacao = "agendado";
-//                if(lis != null){
-//                    for(EventoAlocacao lista2 : lis){
-//                        if(lista1.getNomeEvento().equals(lista2.getNomeEvento())){
-//                            if(lista2.getNomeEvento()!=null){
-//                                situacao = "em andamento";
-//                            }
-//                        }  
-//                    }
-//                }else if(l !=null){
-//                    for(EventoAlocacao lista3 : l){
-//                        if(lista1.getNomeEvento().equals(lista3.getNomeEvento())){
-//                            situacao = "Concluído com Pendência";
-//                        }   
-//                    }
-//                } 
-//                }
-//    
-//            }else situacao = "pendente de alocação";
+            } 
+
                 String[] eventos = new String[]{inicio, duracao, nome, situacao, local};
                 listaRetorno.add(eventos);    
         }     
-
-        
         
         return listaRetorno;
     }

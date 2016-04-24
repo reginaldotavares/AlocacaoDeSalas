@@ -39,9 +39,10 @@ public class MaterialDao implements MaterialDaoIF{
     public void inserirMaterial(Material material) throws SQLException {
         try {
             conexao.abrir();
-            String SQL = "insert into material(descricao) values (?)";
+            String SQL = "insert into material(descricao, status) values (?, ?)";
             pstm = con.prepareStatement(SQL);
             pstm.setString(1, material.getDescricao());
+            pstm.setBoolean(2,true);
             pstm.executeUpdate();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
@@ -88,6 +89,26 @@ public class MaterialDao implements MaterialDaoIF{
             conexao.liberar();
         }
     }
+    
+    public void atualizarMaterialFalse(Material material) throws SQLException {
+        try {
+            conexao.abrir();
+
+            String SQL = "update MATERIAL set status='false' WHERE tombamento=?";
+
+            pstm = con.prepareStatement(SQL);
+            pstm.setInt(1, material.getTombamento());
+            
+            
+            
+            pstm.executeUpdate();
+
+        } catch (Exception E) {
+            E.printStackTrace();
+        } finally {
+            conexao.liberar();
+        }
+    }
 
     @Override
     public Material getMaterial(Integer tombamento) throws SQLException {
@@ -123,7 +144,7 @@ public class MaterialDao implements MaterialDaoIF{
         try {
             conexao.abrir();
 
-            String sql = "select descricao, tombamento from material";
+            String sql = "select descricao, tombamento, status from material order by tombamento";
 
             pstm = con.prepareStatement(sql);
             
@@ -133,6 +154,7 @@ public class MaterialDao implements MaterialDaoIF{
                 Material material = new Material();
                 material.setDescricao(result.getString("descricao"));
                 material.setTombamento(result.getInt("tombamento"));
+                material.setStatus(result.getBoolean("status"));
                 materiais.add(material);
             }
             return materiais;
@@ -200,4 +222,29 @@ public class MaterialDao implements MaterialDaoIF{
         return null;
     }
     
+    public ArrayList<Material> listarMaterialSelecao() throws SQLException {
+    ArrayList<Material> materiais = new ArrayList<Material>();
+        try {
+            conexao.abrir();
+
+            String sql = "select descricao, tombamento from material where status = 'true'";
+
+            pstm = con.prepareStatement(sql);
+            
+            ResultSet result = pstm.executeQuery();
+
+            while (result.next()) {
+                Material material = new Material();
+                material.setDescricao(result.getString("descricao"));
+                material.setTombamento(result.getInt("tombamento"));
+                materiais.add(material);
+            }
+            return materiais;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conexao.liberar();
+        }
+        return null;
+    }
 }

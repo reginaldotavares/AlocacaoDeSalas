@@ -10,18 +10,18 @@ package br.com.sistema.modelos;
  * @author Reginaldo
  */
 public class Alocacao {
+    private Integer id;
     private String descricao;
     private String sala;
-    private Integer id_sala;
     private Integer id_evento;
 
     public Alocacao() {
     }
 
-    public Alocacao(String descricao, String sala, Integer id_sala, Integer id_evento) {
+    public Alocacao(String descricao, String sala, Integer id, Integer id_evento) {
         this.descricao = descricao;
         this.sala = sala;
-        this.id_sala = id_sala;
+        this.id = id;
         this.id_evento = id_evento;
     }
 
@@ -33,12 +33,12 @@ public class Alocacao {
         this.id_evento = id_evento;
     }
 
-    public Integer getId_sala() {
-        return id_sala;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId_sala(Integer id_sala) {
-        this.id_sala = id_sala;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getSala() {

@@ -13,12 +13,15 @@ public class Material {
    
     private Integer tombamento;
     private String descricao;
+    private boolean status;
 
     public Material() {
     }
 
-    public Material(String descricao) {
+    public Material(Integer tombamento, String descricao, boolean status) {
+        this.tombamento = tombamento;
         this.descricao = descricao;
+        this.status = status;
     }
 
     public Integer getTombamento() {
@@ -37,8 +40,13 @@ public class Material {
         this.descricao = descricao;
     }
 
-    
+    public boolean getStatus() {
+        return status;
+    }
 
-   
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     
 }

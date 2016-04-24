@@ -125,29 +125,31 @@ public class AlocacaoDao implements AlocacaoDaoIF{
 
     @Override
     public List<Alocacao> listarAlocacao() throws SQLException {
-//        List<Alocacao> alocacaos = new ArrayList<Alocacao>();
-//        try {
-//            conexao.abrir();
-//            
-//            String SQL = "select descricao, id from alocacao order by descricao";
-//            
-//            pstm = con.prepareStatement(SQL);
-//            
-//            ResultSet result = pstm.executeQuery();
-//  
-//            while(result.next()){
-//                Alocacao alocacao = new Alocacao();
-//                alocacao.setNome(result.getString("descricao"));
-//                alocacao.setId(result.getInt("id"));
-//                alocacaos.add(alocacao);
-//                
-//            }
-//            return alocacaos;
-//        } catch(Exception E) { 
+        List<Alocacao> alocacaos = new ArrayList<Alocacao>();
+        try {
+            conexao.abrir();
+            
+            String SQL = "select id, id_evento, descricao, sala from alocacaoevento";
+            
+            pstm = con.prepareStatement(SQL);
+            
+            ResultSet result = pstm.executeQuery();
+  
+            while(result.next()){
+                Alocacao alocacao = new Alocacao();
+                alocacao.setId(result.getInt("id"));
+                alocacao.setId_evento(result.getInt("id_evento"));
+                alocacao.setDescricao(result.getString("descricao"));
+                alocacao.setSala(result.getString("sala"));
+                alocacaos.add(alocacao);
+                
+            }
+            return alocacaos;
+        } catch(Exception E) { 
 //            E.printStackTrace();
-//        } finally {
-//            conexao.liberar();
-//        }
+        } finally {
+            conexao.liberar();
+        }
         return null;
         
     }
@@ -166,7 +168,7 @@ public class AlocacaoDao implements AlocacaoDaoIF{
   
             while(result.next()){
                 Alocacao alocacao = new Alocacao();
-                alocacao.setId_sala(result.getInt("id_evento"));
+                alocacao.setId_evento(result.getInt("id_evento"));
                 alocacao.setDescricao(result.getString("descricao"));
                 alocacao.setSala(result.getString("sala"));
                 alocacoes.add(alocacao);
@@ -187,6 +189,31 @@ public class AlocacaoDao implements AlocacaoDaoIF{
             String sql = "SELECT * FROM alocacaoevento WHERE descricao=?";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, descricao);
+            ResultSet result = pstm.executeQuery();
+
+            Alocacao alocacao = new Alocacao();
+                
+            if (result.next()) {
+                alocacao.setDescricao(result.getString("descricao"));
+                alocacao.setSala(result.getString("sala"));
+            }
+            return alocacao;
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            conexao.liberar();
+        }
+        return null;
+    }
+    
+    public Alocacao getAlocacaoPorSala(String local) throws SQLException {
+        try {
+
+            conexao.abrir();
+            String sql = "SELECT * FROM alocacaoevento WHERE sala=?";
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1, local);
             ResultSet result = pstm.executeQuery();
 
             Alocacao alocacao = new Alocacao();

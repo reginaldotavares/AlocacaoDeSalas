@@ -29,7 +29,11 @@ public interface MaterialDaoIF {
     public ArrayList<Material> listarMaterial() throws SQLException;
     
     public List pesquisar(Integer tombamento) throws SQLException;
+    
+    public ArrayList<Material> listarMaterialSelecao() throws SQLException;
 
     public List pesquisar(String descricao) throws SQLException;
+    
+    public void atualizarMaterialFalse(Material material) throws SQLException;
     
 }
